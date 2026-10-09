@@ -88,15 +88,16 @@ def trial(rng):
         Counter((Q[0], Q[-1]) for (Q, k) in g["T"] if k == "B1").most_common(1)[0][1] > 1 for g in gadgets.values()),
         nrefl=len(refl), ngad=len(set(refl)), reflected=steps_real > len(line) - 1 + sum(1 for _ in fwd) * 0 and end == "start")
 
-rng = random.Random(int(sys.argv[1]) if len(sys.argv) > 1 else 2); t0 = time.time(); S = Counter(); bad = []
-while time.time() - t0 < float(sys.argv[2] if len(sys.argv) > 2 else 120):
-    try: r = trial(rng)
-    except (AssertionError, KeyError, StopIteration, RuntimeError) as e: S[("error", type(e).__name__)] += 1; continue
-    if r is None: continue
-    S[(f"{r['m']} gadget(s)", "memory" if r["memory"] else "simple", "exact" if r["ok"] else "MISMATCH")] += 1
-    cat = "0 reflections" if r["nrefl"] == 0 else ("1 reflection" if r["nrefl"] == 1 else ">=2 reflections")
-    if r["ngad"] >= 2: cat += ", at >=2 different gadgets"
-    S[("coverage", cat, "exact" if r["ok"] else "MISMATCH")] += 1
-    if not r["ok"] and len(bad) < 3: bad.append(r)
-for k, v in sorted(S.items(), key=str): print(k, v)
-print("mismatches sample:", bad)
+if __name__ == "__main__":
+    rng = random.Random(int(sys.argv[1]) if len(sys.argv) > 1 else 2); t0 = time.time(); S = Counter(); bad = []
+    while time.time() - t0 < float(sys.argv[2] if len(sys.argv) > 2 else 120):
+        try: r = trial(rng)
+        except (AssertionError, KeyError, StopIteration, RuntimeError) as e: S[("error", type(e).__name__)] += 1; continue
+        if r is None: continue
+        S[(f"{r['m']} gadget(s)", "memory" if r["memory"] else "simple", "exact" if r["ok"] else "MISMATCH")] += 1
+        cat = "0 reflections" if r["nrefl"] == 0 else ("1 reflection" if r["nrefl"] == 1 else ">=2 reflections")
+        if r["ngad"] >= 2: cat += ", at >=2 different gadgets"
+        S[("coverage", cat, "exact" if r["ok"] else "MISMATCH")] += 1
+        if not r["ok"] and len(bad) < 3: bad.append(r)
+    for k, v in sorted(S.items(), key=str): print(k, v)
+    print("mismatches sample:", bad)

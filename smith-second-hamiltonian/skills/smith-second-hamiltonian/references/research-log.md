@@ -5,6 +5,39 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 6c (October 2026): Phase 2 (a) clock and (b) power of line–mirror systems
+
+### (a) Clock Theorem (`phase2/clock.py`, `clock_check.py`): exact
+- Morphism σ on the 12 visit types of P_0 (σ(e) = ordered passages through x; lengths 1–5),
+  start word w0 = (ca/B3). The site sequence of any vertex u at depth d of G_k equals
+  concat over f ∈ σ^{d−1}(w0) of pattern_u(f), with pattern_u(f) = u's sites during a P_0-visit of
+  type f. Exact for every vertex at every depth, k = 3..7 (19/19 … 43/43). The innermost depth
+  sees 21, 61, 180, 531, 1565 visits. **The nested host is a morphic-word clock.**
+
+### (b) Site rule and the Retrace Lemma
+- Site rule (`site_rule.py`): forward (in,out)/B1 ↦ backward (c,out)/B1; forward (in,out)/B3 ↦
+  backward (in,c)/B3 (c = third port). Deterministic, from 3,000 hosts.
+- **Retrace Lemma** (proof sketch). If a gadget transmits at a site and the particle later returns
+  through that site from the other side with the gadget's state unchanged, the gadget transmits
+  back and restores its earlier state. Reason: the state graph has degree ≤ 2 and the walk never
+  backtracks, so the walk exactly undoes the visit; the visit moves are host-independent.
+- **Corollary (obstruction):** gadgets with a single site are computationally trivial: at most one
+  reflection, after which the particle retraces to the start. Tests (`cells.py`,
+  `retrace_test.py`): the longest run with N single-site cells is exactly 2N − 1 (N = 1..10);
+  20,000 random lines (N < 40) never reflect twice; 6,485 retrace events in real multi-site hosts,
+  all as predicted.
+- Interaction can only come from multiple sites of the same gadget: a reflection changes the
+  gadget, and the retrace breaks exactly at that gadget's other sites. Passing straight through
+  (no reflections) is easy (each gadget reads its own sites independently).
+- Random multi-site interleavings (`multisite.py`): longest runs 7, 34, 83, 161, 237, 344, …, 449 for
+  m = 1..8 gadgets with 3 sites each. Roughly quadratic; random designs don't reach exponential.
+- The known exponential behaviour comes from **hierarchy** (gadget-internal cost of nested gadgets),
+  not from bouncing on a flat line. Next model to study: hierarchical composition with memory
+  gadgets; the automaton of P_k = Φ(automaton of P_{k−1}), with a state space that may grow
+  exponentially with depth. That is the natural home for a PSPACE-hardness construction.
+
+---
+
 ## Session 6b (October 2026): T1 Phase 2, step 1: the line–mirror system (`scripts/phase2/`)
 
 - **Line–Mirror Reduction (empirical theorem).** For gadgets at host vertices pairwise at distance
