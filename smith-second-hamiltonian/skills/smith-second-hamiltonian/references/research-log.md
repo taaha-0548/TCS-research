@@ -5,6 +5,81 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 10 (October 2026): cycles 6–16, information flow in towers (`scripts/phase5/`)
+
+Cycles 6–8: realisable gates.
+- **Cycle 6/6b (`cycle6.py`, `cycle6b.py`):** gate words are run as real host lines (`run_line`).
+  - Correction: the abstract-group "control" of session 9 came from mixing pair classes.
+  - The realisable notion is **pair-respecting** (all states of one pair class).
+- **Cycle 7 (`cycle7.py`):** realisable pair-respecting controlled gates of length 2 exist for
+  #21, #9, #0, #6, #15 (none for #3). **All of them reflect.**
+- **Cycle 8 (`cycle8.py`):** no pass-through (all-exit-far) controlled gate up to length 7 for
+  any of these towers, at depths 2 and 3.
+
+Cycles 9–11: Hypothesis O (interaction needs reflection).
+- **Cycle 9 (`cycle9.py`):** on pass-through lines at depth 2, level 1's change is independent of
+  the deeper levels (88/88). The deep change does depend on level 1 (45/88). So this is a feed-forward
+  cascade, not decoupling.
+- **Cycle 10 (`cycle10.py`), O′ triangularity:** on a pass-through line, component j's new value is
+  a function of components ≤ j.
+  - Holds on **105/105** pass-through lines at depth 3 (#21, #0).
+  - Reflecting lines carry information upward: in #0, 3,800 of 4,054 lines have level 1 or the exit
+    side depending on deeper levels.
+- **Cycle 11 (`cycle11.py`), mechanism T↓:** a TRANSMIT visit makes only all-TRANSMIT calls,
+  recursively.
+  - Holds for all 2,864 transmitting visits of the 5 rich towers, at levels 1–3.
+  - Proof route: via the Retrace Lemma (one gadget on a line ⇒ ≤ 1 reflection, and a reflection
+    returns to the start).
+  - Corollary, if T↓ holds: the whole walk has ≤ 1 reflecting visit per level, and everything else is
+    a downward cascade of one fixed reversible transducer (a "single-turn" machine; likely
+    predictable).
+
+Cycles 13–16: T↓ is not universal.
+- **Cycle 13 (`cycle13.py`):** 400 random single-slot compositions P′[x ← X].
+  - Correction: a visit can REFLECT with no reflecting call (P′ itself reflects). The valid one-way
+    claim is "R-call ⇒ R".
+  - 68 TRANSMIT visits with 2 R-calls, plus 12 R visits with ≥ 2. **All violators have inner X with
+    h = [1,1,3] or [1,3,3]**, at every slot distance. Gadgets with h = [1,1,1], [2,2,2], [2,2] or
+    [4,4] never violate.
+- **Cycle 14 (`cycle14.py`):**
+  - Double reflection is trivial (reflections are involutions), so it separates nothing.
+  - The local **Ret** property (forward T at e₁, then R, then bwd(e₁) must transmit) separates the
+    random gadgets exactly.
+  - Tower automata fail Ret locally yet satisfy T↓. So Ret is sufficient, and the obstructing
+    combinations are not realisable there.
+- **Cycle 15 (`cycle15.py`):** 67,907 random depth-3 towers.
+  - Multi-reflection visits occur at all three levels in 16% (10,924) of them.
+  - Even over good [2,2,2] bases they appear at levels 2–3 (2,198 of 12,511).
+- **Cycle 16 (`cycle16.py`, `cycle16_examples.json`):** 8,172 random depth-5 towers, minimised at
+  each level. Regime × top-level behaviour:
+
+  | regime | multi-R at top | single-turn |
+  |---|---|---|
+  | bounded | 719 | 3,816 |
+  | polynomial | 1,523 | 1,692 |
+  | exponential (ratio ≥ 2.5) | **256** | 166 |
+
+  - Clean ×4 towers (20, 80, 320, 1280, 5120) are single-turn.
+  - **Exponential AND multi-reflecting towers exist**, e.g. 9, 26, 76, 221, 643 (≈ ×2.9).
+  - **The obstruction "incompressible ⇒ single-turn ⇒ cascade" is refuted.** These 256 towers are
+    the concrete hardness candidates: upward information flow at every level and incompressible
+    state.
+
+Status of hypotheses.
+- O′ / T↓: true for a class (the rich towers, all h ∈ {[1,1,1], [2,2,2], [2,2], [4,4]} bases at
+  level 1). That class is a single-turn cascade: candidate theorem "single-turn towers are
+  poly-predictable" (needs a proof via iterated invertible transducers).
+- Hardness must come from multi-reflection towers. They exist in the exponential regime.
+
+Next cycles.
+- (17) In the multi-R exponential candidates: count reflections per top visit by depth. Linear or
+  exponential growth means genuine upward shuttling.
+- (18) Predictability test: does a poly-size table (Bennett-style E_j over adjacent levels) predict
+  their outputs? If it fails, extract the controlled gates.
+- (19) Prove T↓ under Ret, and the cascade-predictability theorem for single-turn towers.
+
+---
+
 ## Session 9 (October 2026): hypothesis–test–verify cycles on Eppstein's question (`scripts/phase5/`)
 
 Hypothesis lattice: **H1** (towers simulate reversible TMs ⇒ Eppstein YES) vs **H2** (bounded-piece
