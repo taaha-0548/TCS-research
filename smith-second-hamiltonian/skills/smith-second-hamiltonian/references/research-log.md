@@ -5,6 +5,40 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 6 (October 2026): T1 Phase 1, gadgets with memory (`scripts/phase1/`)
+
+Target: Eppstein's question (LOLLIPOP-OUTPUT FP^PSPACE-complete?). Phase 1 = gadget algebra + go/no-go.
+
+### P1.1 General Composition Theorem (`compose.py`, `test_compose.py`)
+- Algorithm: the transducer of P = P'[x ← X] is computed from P' plus X's table. Simulate the P'
+  visit and hand each passage through x to X. B1 passage: X picks the exit port; exit = entry port
+  means REFLECT, and the rotation undoes the previous one. B3 passage: rotate iff TRANSMIT; the
+  previous attachment becomes x. X's internal path is carried as state.
+- Test vs direct computation on P: 19,411 pairs with X having memory (804,160 visits) and 27,902
+  with X simple (607,160 visits). **All exact.** (Proof idea: Transducer Theorem items 2–3 applied
+  inside the host; no simplicity needed.)
+
+### P1.2 Expressiveness (`expressive.py`, `p12_examples.json`)
+- Pole = Mealy machine (states = internal paths; inputs = visit types; outputs = T/R). Nerode
+  minimisation; "toggle" = same input, two mutually reachable states, different outputs;
+  "interacting" = a different input moves the walk between those states.
+- Interacting toggle memory: 0% of 5-vertex poles, 16% at 7, 31% at 9, 44% at 11, 59% at 13.
+- Smallest example (7 vertices): the cubic graph [[7,1,4],[0,2,5],[1,3,7],[2,4,6],[3,5,0],
+  [4,6,1],[5,7,3],[6,0,2]] minus vertex 0. Pair {a,c} has 3 states. Entry via ab/B3 → ac1,
+  cb/B3 → ac2, B1 entries → ac0. ac/B1 passes iff ac0, and otherwise reflects while swapping
+  ac1 ↔ ac2. ca/B3 passes iff ac2.
+- **Go/no-go: GO.** Memory that one traversal writes and another reads exists at the smallest
+  possible size.
+
+### Next (Phase 2)
+- Formalise the "particle on a line with stateful mirrors" model induced by a host line, and decide
+  whether it can simulate reversible computation. Use the deep-research report on the DHHL gadget
+  framework (which gadgets suffice, and whether a linear track is enough).
+- Wiring: which visit sequences can a host produce at one pole, and can several poles in one host be
+  coupled?
+
+---
+
 ## Session 5 (October 2026): can we do better? (`search_base.py`, `mix_search.py`, `memory_screen.py`)
 
 - E21 exhaustive single-gadget search (exact method, all x, r ∉ N[x], wirings, starts), base graphs
