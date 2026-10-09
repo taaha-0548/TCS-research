@@ -5,6 +5,29 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 6b (October 2026): T1 Phase 2, step 1: the line–mirror system (`scripts/phase2/`)
+
+- **Line–Mirror Reduction (empirical theorem).** For gadgets at host vertices pairwise at distance
+  ≥ 3 and away from v0, the lollipop walk on G = H[x ← X_x] equals the abstract system: a particle
+  on H's line S_0..S_L; sites at passages through gadget vertices (B1: a state with endpoint x;
+  B3: a step attaching to x); a site traversed in either direction presents a visit type to its
+  gadget, whose automaton (state shared by all its sites) answers TRANSMIT (continue) or REFLECT
+  (reverse). `linemirror.py`, `test_linemirror.py`: ~182,000 random hosts with 1–3 gadgets (memory
+  allowed), all exact (end and step count). Coverage: 16,440 with 1 reflection, 1,965 with ≥ 2,
+  138 with reflections at ≥ 2 different gadgets.
+- Eppstein's question now splits into Q1 (can line–mirror systems with realisable automata
+  simulate reversible computation?) and Q2 (which site sequences can hosts produce?).
+- Q2 survey (`sites_survey.py`): random hosts give ≤ ~6 sites per vertex (n = 800). The nested
+  family G_k gives single vertices 61 (n = 32) and 531 (n = 44) sites, in a recursive pattern.
+  **Idea: use G_k as an exponential "clock" host and substitute memory gadgets at chosen
+  vertices, so the clock drives exponentially many reads and writes; iterating a reversible
+  circuit is the FP^PSPACE-complete source problem.**
+- Next: (a) characterise the site sequence of the nested host recursively, via the composition
+  structure; (b) Q1 for the abstract model, i.e. a construction or an obstruction (e.g. whether
+  bouncing particles on a line with toggles are polynomially predictable).
+
+---
+
 ## Session 6 (October 2026): T1 Phase 1, gadgets with memory (`scripts/phase1/`)
 
 Target: Eppstein's question (LOLLIPOP-OUTPUT FP^PSPACE-complete?). Phase 1 = gadget algebra + go/no-go.
