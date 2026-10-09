@@ -53,7 +53,7 @@ The full annotated bibliography, with what each paper proves, is in
 | LOLLIPOP-OUTPUT FP^PSPACE-complete? | open, **primary target** | open-problems.md T1 |
 | 3-edge-cut gadgets (Mirror Lemma L3) | **theorem (session 2; needs an independent check)**: C1(G)/X ∈ {C0/X, C1(G/X)}; a 3-pole is a stateful mirror | references/mirror-lemma.md, research-log E9–E13 |
 | Transducer Theorem | **proved from the case analysis, exact check E14**: walk on G = walk on G/X + finite reversible automaton per 3-pole; active-memory poles common (E15) | references/mirror-lemma.md |
-| Lollipop worst-case base | ≥ 1.1812 (B–S). **Θ(1.19742^n), proof complete in structure** (session 3: Composition Lemma, tests T1–T3, rational certificate); pending human check and literature check | references/composition-proof.md, improved-lower-bound.md |
+| Lollipop worst-case base | ≥ 1.1812 (B–S). **Θ(1.19742^n), full proof written and independently audited (A1–A8, session 3b)**; pending independent human reading and full-text literature check | references/composition-proof.md, improved-lower-bound.md |
 | Lollipop on random instances | **our data: mean ≈ n/2, up to n = 5000; attach point uniform, 17% edge reuse (E6)**; no proof | research-log E2, E6, open-problems T2 |
 | Cyclically 4-edge-connected route (Thomassen) | closed: Zhong 2018 gives exponential examples | literature.md §3 |
 | Fastest exact algorithm for SMITH | O(1.23103^n) det., poly space (DMSZ, MFCS 2020) | literature.md §2 |
@@ -79,6 +79,7 @@ All code is in `scripts/`. Every experiment script writes a JSON result file nex
 - `transducer.py`, `show_transducer.py`: host-independent 3-pole automata;
   `exp_transducer_check.py` (E14), `exp_pole_survey.py` (E15).
 - `nested*.py`, `chains.py`: nested 3-pole families for the worst-case base (E16–E18).
+- `audit/`: independent re-implementations and audits A1–A8 of the 1.1974^n proof.
 - `exp_t2_*.py`: T2 mechanism tests (attach position, reuse, hazard).
 - `exp_search_long.py n1 n2 ...`: simulated annealing for long walks (35 s per n). Keep
   each run under the 300 s tool limit.

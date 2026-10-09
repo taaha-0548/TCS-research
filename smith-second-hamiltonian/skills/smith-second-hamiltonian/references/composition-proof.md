@@ -17,6 +17,37 @@ Session 3. This replaces the "GAP" in `improved-lower-bound.md`. Status at the e
   1 move (B3) in the contracted graph. So **cost = extra moves caused by X**.
 - Standing hypothesis (ii): v0 ∉ X ∪ N(X).
 
+## 0.5 Transducer Theorem: full proof (session 3 audit)
+
+Setting of the Mirror Lemma (cut edges a matching, v0 ∉ X ∪ N(X), H = G/X simple).
+
+**(T-i) Host independence.** While the endpoint is in X, a move is decided by the endpoint z, its
+neighbours, its path predecessor and the forbidden vertex (the last attachment). Where the cut
+edges at z are already path edges, z's admissible edges all lie inside X.
+- In a B1 state Y1·X, an attachment w ∈ X has its successor in X, so only the X-segment is
+  rearranged and Y1 is untouched.
+- In a B3 state Y1·X1·Y2·X2, the moves are 3a (inside X2), 3b-i (Y2 reversed as one opaque block,
+  X-pieces re-split) and 3b-ii (exit).
+Hence the sequence of X-pieces with their order and orientation evolves as a function of the
+entry configuration alone. The forbidden vertex is in X after the first internal move. At the
+first move of a B1 visit it is q_in, so the cut edge at p_in is excluded: the visit cannot leave
+immediately. That matches `visit_B1`.
+
+**(T-ii) Exit states.**
+- *B1.* The visit is entered by the host move S_{i−1} → S_i that deletes q_in x, with forbidden
+  q_in. It exits from a port p_j by adding e_j, which projects to the host rotation at x along
+  x q_j, with forbidden q_j in both graphs. The host walk at S_i takes the non-forbidden edge
+  x q_c (c = third port), so exiting through p_c is the host's own next move (TRANSMIT). Exiting
+  through p_in is the rotation along x q_in, which undoes the entry move (REFLECT, back to S_{i−1}).
+- *B3.* The visit is entered by the host move S → S* attaching q_j to x, with forbidden x. It exits
+  by case 3b-ii at Y1·x·rev(Y2) with forbidden p_b ↦ x. The run alternates S*, S, S*, …, so the
+  exit lands at S* (TRANSMIT: the host continues from S* with forbidden x) or at S. In the second
+  case, S's endpoint q_j has non-path edges x (forbidden) and one other, so the host walk moves
+  backwards (REFLECT).
+
+**(T-iii) Costs.** The number of moves between entry and exit is fixed by (T-i), so it is
+host-independent. ∎ Exact check: E14 (4,691 / 4,691 runs, same final cycle and step count).
+
 ## 1. Lemma S (simple ⇒ transparent)
 
 *If X is simple, every visit to X transmits, in every host satisfying (ii).*
@@ -104,7 +135,14 @@ Lemma S (P_{k−1} is simple) give
 where N_f counts passages of kind f through x in K's own walk. For (v0, d) = (0, +1): steps(K) = 4,
 and there is a single passage, of kind ca/B3. So **steps(G_k; 0, +1) = 4 + c_{k−1}[ca/B3].**
 
-## 5. Growth certificate (exact rational arithmetic, `certificate.py`)
+## 5. Growth certificate (exact rational arithmetic, `certificate.py`, refined by audit A8)
+
+**A8 refinement.** The recursion is proved only for visit kinds that actually occur. Let R be the
+set of entries reachable from ca/B3 along M. Every entry of R occurs (induction from the realized
+passage of start (0, +1)), and rows of R reference only columns in R. R has 10 of the 12 entries;
+ρ(M_R) = ρ(M). `audit/a4_a8_algebra.py` checks M_R u ≥ (29477/10000) u exactly, with u > 0 on all of
+R. The argument below is applied to R only.
+
 
 There is a rational vector u ≥ 0 (support 10 of 12 entries) with M u ≥ λ u componentwise, for
 λ = 29477/10000. Since c_0 > 0, ε := min_{u_i > 0} c_0[i]/u_i > 0, so c_0 ≥ ε u. By induction,
@@ -123,38 +161,52 @@ c_k = Θ(ρ^k).
   path of P between the matching ports). K has exactly 3 Hamiltonian cycles. By Smith's theorem
   every edge lies in an even number of them, hence exactly 2, so each edge pair at x is used by
   exactly one. With P_{k−1} simple, G_k has exactly 3.
-- **3-connected.** For cubic graphs this is equivalent to 3-edge-connected. Substituting a
-  3-edge-connected 3-pole (G − r with G 3-edge-connected) into a vertex of a 3-edge-connected cubic
-  graph keeps it 3-edge-connected: an edge cut of size ≤ 2 would induce one of size ≤ 2 in K or in
-  G_{k−1}. **[write out]**
-- **Planar.** K and every G_k are 3-connected, so by Whitney each has a unique embedding up to
-  mirror image. The rotation at r is the same at every level, since r's edges are never touched.
-  G_{k+1} is planar iff the cyclic order of K's rotation at x matches, under perm, the cyclic
-  order of r's rotation in G_k up to reversal. That condition involves only K, x, r and perm, and
-  the same holds at every level. G_1 is planar (computation), so the condition holds and every G_k
-  is planar. **[write out the face argument]**
-- Verified directly for n ≤ 80 (`graph_props.py`).
+- **3-connected (proof).** For cubic graphs 3-connected ⇔ 3-edge-connected. Let K, G be
+  3-edge-connected and cubic, P = G − r, K' = K[x ← P] with any wiring. Suppose F is an edge cut
+  of K' with |F| ≤ 2 and sides A, B. If V(P) lies on one side, contracting V(P) to x gives a cut
+  of K with the same edges: contradiction. Otherwise let F_P = F ∩ E(P). In G, put r on side A:
+  the crossing edges are F_P plus r's edges to ports in B. Putting r on side B instead gives F_P
+  plus r's edges to ports in A. Both partitions are nontrivial, so |F_P| + #ports(B) ≥ 3 and
+  |F_P| + #ports(A) ≥ 3. Adding, 2|F_P| ≥ 3, hence |F_P| = 2 = |F|. So F avoids the edges at the
+  ports, each port is on the same side as its K-neighbour u_i, and V(K) − x meets both sides. In
+  K, put x on side A: the crossing edges are x's edges to u_i ∈ B, so #ports(B) ≥ 3. Likewise
+  #ports(A) ≥ 3. That gives 6 ≤ 3, a contradiction. ∎
+- **Planar (proof).** Embed G_k in the plane. Deleting r merges its faces into one face whose
+  boundary meets the three ports in r's rotation order. Embed K; deleting x leaves a face meeting
+  u_1, u_2, u_3 in x's rotation order. Place P = G_k − r inside that face and join u_i to its
+  port. This is crossing-free iff the wiring maps one cyclic order to the other or to its
+  reverse. Every bijection of 3-element sets does one of the two, and the reverse case is handled
+  by mirroring P's embedding. So **any** substitution of a planar 3-pole into a vertex of a planar
+  cubic graph is planar, and by induction every G_k is planar (K is planar). ∎
+- Verified directly: cubic and planar for n ≤ 80, 3-connected for n ≤ 68, exactly 3 Hamiltonian
+  cycles by exhaustive search for n ≤ 50 (audit A7, independent construction).
 
-## 7. Audit: can this be counted as a proof?
+## 7. Audit (session 3, second pass): can this be counted as a proof?
 
-| # | Claim | Status | Evidence |
+All `audit/` scripts are independent of the production code unless noted.
+
+| # | Claim | Proof status | Independent verification |
 |---|---|---|---|
-| 1 | Mirror Lemma (π is a reflexive homomorphism) | proof written, 8 cases | E12, E13 (0 / 85k violations) |
-| 2 | Transducer Theorem (host independence, exit states, costs) | proof sketched from the cases of 1 | E14 exact 4,691 / 4,691 |
-| 3 | Lemma S (simple ⇒ transparent) | proof written (short) | 2,223 / 2,223 simple poles transparent (T3) |
-| 4 | Lemma C (composition) | proof written | T1 (M from P_0 = M measured), T3 (2,223 random families exact), E20 |
-| 5 | Induction and recursion c_k = c_0 + M c_{k−1} | follows from 3, 4 and the finite base | exact for k = 0..11 (E19/E20) |
-| 6 | Walk formula on G_k | follows from 2, 3 | T2: 64 / 64 eligible starts exact, k ≤ 8; 16 / 48 ineligible fail (hypothesis needed) |
-| 7 | Growth certificate | exact rational check | `certificate.py` |
-| 8 | Exactly 3 Hamiltonian cycles | proof written | enumeration n ≤ 32 |
-| 9 | 3-connected, planar | proof outlined | computation n ≤ 80 |
-| 10 | Better than all known bounds | **unverified** | full-text access blocked; snippets show B–S 1.1812 as best through 2024 |
+| 0 | Simulator = Thomason's algorithm | definition | A1/A2: production = edge-set reimplementation = brute-force state graph, 300 random graphs + all starts of levels 0–2 |
+| 1 | Mirror Lemma | written, 8 cases | E12, E13 (0 / 85k violations) |
+| 2 | Transducer Theorem | written in full (§0.5) | E14 exact 4,691 / 4,691 |
+| 3 | Lemma S (simple ⇒ transparent) | written | A6: 7,233 / 7,233 simple poles (sizes 9–21) transparent; T3 |
+| 4 | Lemma C (composition) | written | A5: 71,484 random (P', X) pairs, all of (a), (b), (c) exact; control with X not simple: h differs 98%, outcomes differ 56% |
+| 5 | Recursion c_k = c_0 + M c_{k−1} (on R) | from 3, 4 and the base | T1; E19/E20 exact k ≤ 11 |
+| 6 | steps(G_k; 0, +1) = 4 + c_{k−1}[ca/B3] | from 2, 3 | A3: independent construction, cycles by recursion, independent walk: exact k = 1..10 (n ≤ 68) |
+| 7 | Growth: Ω(2.9477^k) | exact rational certificate on R (A8) | A4: charpoly λ²(λ−1)²(λ+1)²(λ²+1)(λ⁴−2λ³−2λ²−2λ−1), quartic irreducible, ρ = 2.947711586844637… |
+| 8 | Exactly 3 Hamiltonian cycles | written | A7: exhaustive n ≤ 50 |
+| 9 | 3-connected; planar | written (§6) | A7: 3-connected n ≤ 68, planar n ≤ 80 |
+| 10 | Better than all published bounds | **unverified** | full texts blocked; snippets show B–S 1.1812 as best through 2024 |
+| — | Consistency with exhaustive data | — | n = 14: max 27 ≤ exhaustive worst case W(14) = 29 (E1); n = 8: 6 = W(8) |
 
-**Verdict.** The argument is complete in structure. Every step is either proved in writing or is a
-finite exact computation, and each was cross-checked by an independent experiment. It reaches the
-standard of a careful paper draft, **not yet a refereed proof**. Before claiming it publicly:
-1. A human should check the Mirror Lemma case analysis (1) and write the Transducer Theorem (2) in
-   full. Item 2 is the most compressed part of the chain.
-2. Write out the 3-connectivity and planarity arguments (9).
-3. Read Briański–Szady and later citing papers in full (10), and confirm the step-counting
-   convention matches theirs. A difference of a constant number of steps does not change the base.
+**Verdict.** Every link is proved in writing and independently verified, and the audit found and
+closed one gap (A8: the recursion is only proved for visit kinds that actually occur). No
+counterexample was found to any claim. This meets the standard of a complete proof by the
+authors; it becomes an accepted result after (i) an independent human reading of §0.5–§2 and the
+Mirror Lemma, and (ii) a full-text literature check (item 10).
+
+**Theorem (pending i–ii).** For every k ≥ 0 there is a 3-connected planar cubic graph on
+n = 8 + 6k vertices with exactly three Hamiltonian cycles, a Hamiltonian cycle C and an edge e on
+which Thomason's lollipop algorithm takes Θ(ρ^k) = Θ(1.19742…^n) steps, where ρ is the largest
+root of λ⁴ − 2λ³ − 2λ² − 2λ − 1.

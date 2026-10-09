@@ -5,6 +5,30 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 3b (October 2026): comprehensive audit (`scripts/audit/`)
+
+- A1/A2 simulator = Thomason: production = independent edge-set walk = brute-force state graph
+  (300 random graphs; every start of family levels 0–2). **Pass.**
+- A3 independent rebuild of the family (tuple labels, Hamiltonian cycles by recursion, independent
+  walk): steps(G_k; 0, +1) = 10, 25, 73, 214, 628, 1849, 5449, 16060, 47338, 139537 for k = 1..10,
+  all equal to the prediction 4 + c_{k−1}[ca/B3]. **Pass.**
+- A4 exact algebra: charpoly(M) = λ²(λ−1)²(λ+1)²(λ²+1)(λ⁴−2λ³−2λ²−2λ−1); quartic irreducible;
+  ρ = 2.947711586844637235. **Pass.**
+- A5 Lemma C in general: 71,484 random (P', X) pairs with X simple, all exact. Control (X not
+  simple): h differs 98%, outcomes differ 56%. **Pass; hypothesis essential.**
+- A6 Lemma S: 7,233 random simple poles of size 9–21, all transparent. **Pass.**
+- A7 graph class (independent build): cubic and planar n ≤ 80, 3-connected n ≤ 68, exactly 3
+  Hamiltonian cycles by exhaustive search n ≤ 50. **Pass.**
+- A8 **gap found and closed**: the recursion is proved only for visit kinds that occur. The
+  certificate is restricted to the 10 entries reachable from ca/B3; same ρ, exact inequality, u > 0.
+- Written in full: Transducer Theorem (§0.5), 3-connectivity (edge-count argument), planarity (any
+  3-pole substitution is planar, since every bijection of 3 elements preserves or reverses cyclic
+  order).
+- Verdict: complete proof by the authors; pending (i) independent human reading, (ii) full-text
+  literature check.
+
+---
+
 ## Session 3 (October 2026): testing and proving the Composition Lemma
 
 ### Reasoning
