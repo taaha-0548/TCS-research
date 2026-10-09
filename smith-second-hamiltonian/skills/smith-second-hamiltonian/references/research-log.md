@@ -5,6 +5,38 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 3 (October 2026): testing and proving the Composition Lemma
+
+### Reasoning
+- The old GAP (visit walks as walks on a pole with open edges; hypothesis (ii) failing at port 6)
+  disappears. Apply the Transducer Theorem to the inner pole X = P_{k−1} inside the full graph.
+  There v0 lies in the host and N(X) ⊆ P, so (ii) holds. Contracting X turns P_k into P_0 = K − r.
+- **Lemma S (new): a simple pole (one Ham path per port pair) is transparent.** A reflection would
+  return the walk to the unique lift of an A-state, i.e. a revisit, impossible on a path.
+- **Lemma C (composition):** with X simple and N(X) ⊆ P: h(P) = h(P/X), same outcome table, and
+  c_P = c_{P/X} + M c_X, where M counts the passages through x in visits to P/X.
+
+### Tests
+- **T1** (`exp_composition_T1.py`): M computed from the 7-vertex P_0 alone equals the M measured
+  on the real nested graphs (E20); c_0 = b; T_0 = all transmit; P_0 simple. **Pass.**
+- **T2** (`exp_composition_T2.py`): closed-form walk length on G_k from K's walk: 64 / 64
+  eligible starts (v0 ∉ N[x]) exact for k = 1..8. Control: 16 of 48 starts with v0 ∈ N(x)
+  fail, so the hypothesis is needed. **Pass.**
+- **T3** (`exp_composition_T3.py`, `t3_composition.json`): 2,223 random nested families
+  satisfying the hypotheses (|K| ∈ {6, 8, 10}, k ≤ 3): prediction from P_0 exact at every level,
+  **0 failures**. Excluded because the prediction is undefined: 6,770 with P_0 not simple,
+  2,143 with r ∈ N(x). All simple poles met were transparent (supports Lemma S).
+- **Certificate** (`certificate.py`, `certificate_N.py`): rational u ≥ 0 with M u ≥ (29477/10000) u
+  exactly; start (0, +1) has the single passage ca/B3 with u > 0, so
+  steps(G_k) = 4 + c_{k−1}[ca/B3] ≥ ε · 2.9477^{k−1}. Ω(1.19742^n).
+
+### Verdict
+- Proof complete in structure; audit table in `composition-proof.md` §7. Remaining before a
+  public claim: human check of the Mirror Lemma and a full write-up of the Transducer Theorem;
+  write out the 3-connectivity and planarity arguments; full-text literature check (blocked here).
+
+---
+
 ## Session 2 (October 2026): T2 mechanism, then pivot to T1 gadget theory
 
 ### E6: attach position and chord freshness (`exp_t2_mechanism.py`)

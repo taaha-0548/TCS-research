@@ -1,0 +1,8 @@
+{
+ "summary": {
+  "skipped: P_0 has h != 1": 6770,
+  "('H1+H2', 'exact')": 2223,
+  "skipped: r adjacent to x (H2 fails, prediction undefined)": 2143
+ },
+ "fails": []
+}

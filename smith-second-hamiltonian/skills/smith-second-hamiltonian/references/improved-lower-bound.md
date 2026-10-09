@@ -1,7 +1,8 @@
 # Candidate result: Thomason chains of length Ω(1.1974^n) on 3-connected planar cubic graphs
 
-Status (session 2): **exact recursion found and verified computationally; proof reduced to one
-lemma (marked GAP below) plus routine checks.** Not yet a theorem. Novelty: Briański–Szady
+Status (session 3): **the GAP is closed by the Composition Lemma; full argument and audit in
+`composition-proof.md`.** Proof complete in structure (paper-draft standard), pending human
+verification of the Mirror Lemma / Transducer Theorem write-up and the literature check. Novelty: Briański–Szady
 (Discrete Math. 2022, arXiv 1903.02515) give Ω(1.1812^n) for 3-connected planar cubic graphs and
 are still cited as the best bound in 2023–2024 (Björklund–Kaski–Nederlof, ICALP 2024). No newer
 improvement turned up in searches up to October 2026, but full texts could not be read from this
@@ -55,7 +56,7 @@ Since n grows by 6 per level, the walk length is Θ(ρ^{n/6}) = Θ(1.19742^n).
    planarity when the cyclic order of the ports matches the rotation at x; 3-connectivity is
    preserved by substituting a 3-connected 3-pole. Verify that perm respects the rotation of the
    embedding (it must, since planarity holds through n = 80; write the argument).
-3. **GAP: Nested Transducer Lemma.** During a visit to P_{k+1}, the internal walk enters the
+3. **(Closed in session 3: see `composition-proof.md`, Lemma C. Original note follows.)** During a visit to P_{k+1}, the internal walk enters the
    nested pole P_k as a sequence of sub-visits, and depends on P_k only through P_k's outcome
    table (which visit transmits, and the successor state). This is the Transducer Theorem applied
    to the visit walk instead of the full lollipop walk. Two things need care:
