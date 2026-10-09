@@ -5,6 +5,22 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 5 (October 2026): can we do better? (`search_base.py`, `mix_search.py`, `memory_screen.py`)
+
+- E21 exhaustive single-gadget search (exact method, all x, r ∉ N[x], wirings, starts), base graphs
+  with exactly 3 Hamiltonian cycles. |K| = 8: 1 graph, best base 1.197423 (ours, the only one).
+  |K| = 10: 3 graphs, 1.184113. |K| = 12: 7 graphs, 1.191341. |K| = 14: 24 graphs, 1.197423
+  (ρ = 8.689 = 2.9477², i.e. two levels of our family). Dedup by adjacency spectrum (WL hashing
+  cannot separate regular graphs; first attempt was wrong for that reason).
+- E22 mixed periodic families: 1,392 distinct gadget matrices (|K| ≤ 12), periods 1–8 (beam
+  search): best 1.197423, no improvement.
+- E23 non-simple (memory) nested families by direct simulation, |K| = 10, 12: best ≈ 1.189.
+- Verdict: 1.19742 is optimal within the simple-nesting design space at these sizes. Larger bases
+  need a new idea: non-simple poles with an exact theory, larger K (|K| ≥ 16), or cuts other than
+  3-edge cuts. Added a paragraph on this to the paper's discussion.
+
+---
+
 ## Session 4 (October 2026): reviewer-ready package (`/paper`)
 
 - Manuscript `paper/paper.tex`: Theorem 1 (Θ(1.19742^n)), Mirror Lemma, Transducer Theorem,

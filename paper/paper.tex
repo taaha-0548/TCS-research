@@ -467,6 +467,16 @@ gadgets that pass or reflect the walk, which connects the lollipop walk to zero-
 motion planning~\cite{DHHL22}. This may be a route to Eppstein's question~\cite{Eppstein23}
 whether computing the output of the lollipop algorithm is FP$^{\textsf{PSPACE}}$-complete.
 
+\paragraph{Optimality within the design space.} The method makes it cheap to search over
+nested families exhaustively. Among all base graphs $K$ with at most 14 vertices and exactly three
+Hamiltonian cycles (1, 3, 7 and 24 graphs on 8, 10, 12 and 14 vertices, up to cospectrality), all
+choices of $x$, $r \notin N[x]$, wiring and start, no single-gadget family beats the base
+$1.197423$; the best 14-vertex family is two levels of ours. Periodic mixtures of up to eight
+gadgets on at most 12 vertices (1{,}392 distinct gadget matrices) give no improvement either.
+Families whose poles are not simple, so that they reflect the walk, are outside the exact
+theory; simulations of several thousand such families with $|K| \in \{10,12\}$ gave at most
+about $1.189$ per vertex.
+
 \paragraph{Open problems.} Is there a matching upper bound on the length of the lollipop walk in
 terms of a fixed base below $2$? Which bases are achievable with simple nested gadgets? Is the walk
 polynomial on cyclically 5-edge-connected cubic graphs?
