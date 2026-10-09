@@ -8,11 +8,11 @@ lollipop algorithm takes Θ(ρ^{n/6}) = Θ(1.19742^n) steps, where ρ = 2.9477�
 
 | File | What it is |
 |---|---|
-| `paper.tex` | the manuscript (compile with pdflatex twice, or upload to Overleaf with `appendix_visits.tex`) |
-| `appendix_visits.tex` | generated table of every move of the 12 base visits (hand-checkable certificate) |
+| `paper.tex` | the complete manuscript, single self-contained file (13 pages); compile with `pdflatex paper.tex` three times |
+| `paper.pdf` | compiled version |
 | `verify.py` | standalone reproducibility script (standard library only, under 1 s): `python3 verify.py 10` |
 | `verify_output.txt` | output of the last run (ALL CHECKS PASSED) |
-| `gen_appendix.py` | regenerates `appendix_visits.tex` from the definitions in `verify.py` |
+| `gen_paper_data.py`, `gen_tables.py` | regenerate the integer certificate, the step table, the appendix tables (`tab_visits.tex`, `tab_trace.tex`) and `paper_data.json` from the definitions in `verify.py` |
 
 The research history, independent audits (A1–A8) and exploratory code are in
 `../smith-second-hamiltonian/` (see `references/composition-proof.md`, section 7).
@@ -38,7 +38,7 @@ These could not be done from the research environment (paper sites were blocked)
 5. **Bibliography.** Fill in the entries marked `% TODO verify` (Zhong pages; DHHL venue).
 6. **Authors and disclosure.** Fill in the author block. Check the target venue's policy on
    AI-assisted research and disclose as it requires.
-7. **Compile and proofread.** Check the figure (the chord {2,6} is drawn outside the octagon).
+7. **Proofread** `paper.pdf` (compiled and visually checked; figures render correctly).
 
 ## Suggested venues
 
