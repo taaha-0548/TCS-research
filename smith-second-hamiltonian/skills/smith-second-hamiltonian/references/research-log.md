@@ -5,6 +5,39 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 8 (October 2026): reasoning strategies instead of search (`scripts/phase4/`)
+
+Strategies compared on efficiency (decisiveness per unit of work):
+- **A. Fit into the DHHL framework.** Site Normal Form ⇒ every site is a reversible deterministic
+  tunnel; tunnel-only systems have a single-path track (each tunnel has 2 ends, so the wiring is a
+  union of paths and cycles). DHHL's PSPACE theorem uses an extra branching gadget (rotate
+  clockwise). Search snippets: their tunnel gadgets simulate the locking 2-toggle "without
+  branching hallways", but the main theorem still adds rotate clockwise. Tunnel-only hardness:
+  status unknown (full text blocked). **Very efficient: reduces the question to "branching or
+  tunnel-only hardness".**
+- **B. Symmetry obstructions** (cheap tests):
+  - product-map obstruction: FALSE. In optimal nested-cavity machines every gadget's final state
+    depends on the others; the final map is a permutation; the walk exits at the start
+    (`coupling_test.py`);
+  - bounded change-window obstruction: FALSE. Excursion changes reach the full depth m − 2
+    (`window_test.py`).
+- **C. Bennett pebbling correspondence: CONFIRMED for the longest-running designs**
+  (`bennett_test.py`). Every level-j excursion contains exactly 3 level-(j+1) excursions
+  (2 → 6 → 18 → 54), and after each one all gadgets ≥ 2 levels deeper are restored
+  (compute / commit / uncompute). Consequence: those machines are predictable in O(m·c²) by
+  bottom-up tables (E_j over (s_{j+1}, s_{j+2})), even though they run 3^m steps. **Counting ≠
+  computing**: maximal-length designs are pure Bennett counters.
+  - Restoration is NOT universal (`restoration_test.py`): it fails in about 1/3 of excursions in
+    random designs, so generic nested-cavity machines are not covered by the polynomial algorithm.
+- D. Algebraic/parity invariants: judged low-efficiency (parity did not stop Lemke–Howson).
+
+Status: no cheap obstruction survives for nested-cavity machines; information can propagate to full
+depth; Bennett structure explains the exponential counters exactly. Open: are non-restoring designs
+able to compute (simulate reversible circuits), and does the lollipop setting admit branching (e.g.
+from 4-edge cuts)?
+
+---
+
 ## Session 7 (October 2026): stronger lemmas and hypotheses (`scripts/phase4/`)
 
 - **Site Normal Form** (proof sketched; 61,308 retrace checks and 18,540 involution checks per
