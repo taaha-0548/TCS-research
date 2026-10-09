@@ -5,6 +5,42 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 9 (October 2026): hypothesis–test–verify cycles on Eppstein's question (`scripts/phase5/`)
+
+Hypothesis lattice: **H1** (towers simulate reversible TMs ⇒ Eppstein YES) vs **H2** (bounded-piece
+3-cut decompositions ⇒ LOLLIPOP-OUTPUT ∈ FP ⇒ hardness needs large cyclically 4-edge-connected
+pieces). Towers have bounded pieces, so H1 and H2 are incompatible.
+- **Dynamics group** (`dynamics_group.py`): G = ⟨σ_e⟩, where σ_e is the site involution (forward on
+  left states, backward on right). Involution property holds for every composed tower (0 failures).
+  On the single orbit G is Alt/Sym in every regime: #0 (11 → 43 → 171 states), #6/#9 (3 → 12 → 48),
+  #21 (7 → 15 → 35), and even the bounded #3 (Sym(3)). **No group-structure obstruction; does not
+  discriminate H1/H2.**
+- **Transparent towers = self-similar (automaton-group) actions.** Wreath recursion: entry type =
+  automaton state, internal path = letter, passages = child word (`selfsimilar.py`: 998 transparent
+  memory poles among 4,000; transparency closed under composition, 80/80). Group orders by depth
+  (`selfsimilar3.py`): 93 towers stabilise (finite: 24, 6, 96); 147 grow ×4 per level (24, 96, 384,
+  1536) — tiny compared with Sym. Cycle 1: all 80 tested are **non-abelian** (an abelian obstruction
+  fails; solvability untested, sympy too slow).
+  - Literature hook: automaton groups can have PSPACE-complete word problems (Wächter–Weiß, STACS
+    2020). H4: some realisable transparent library has an FP^PSPACE-hard point-evaluation of
+    compressed words. Small growth (≈ 4^d) suggests the homogeneous transparent towers seen here are
+    weak.
+- **Cycle 2 (short controlled gates)** (`cycle12.py`): adjacent-level controlled gates (level 1
+  controls level 2) exist as short words: length 4 (#21), 6 (#9); none for #0, #6 within the
+  budget. Long-range (1 → 3 with level 2 fixed): none within 150k elements.
+- **Cycle 3 (addressability)** (`cycle3.py`): level 2 controls level 3 with level 1 fixed: length
+  8 (#21, #9). Strict variant (level 2 also fixed) not found within 400k elements. Gate length
+  4/6 → 8: consistent with linear growth in depth (2 data points).
+- Caveat: group words are abstract; a host line realises a word only through the particle's actual
+  trajectory (reflections change which sites are hit next). Realisability of gate words is the next
+  link.
+
+Next cycles: (4) gate length at depth 4–5 (linear vs exponential); (5) strict controlled gates via
+commutators of adjacent gates (Barrington-style); (6) realise a gate word as an actual host line
+(single gadget, line of sites with the word's types) and check the trajectory applies it.
+
+---
+
 ## Session 8 (October 2026): reasoning strategies instead of search (`scripts/phase4/`)
 
 Strategies compared on efficiency (decisiveness per unit of work):
