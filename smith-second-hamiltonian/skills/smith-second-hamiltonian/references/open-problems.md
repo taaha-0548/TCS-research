@@ -91,7 +91,8 @@ globally. 3-edge cuts are the natural tool for enforcing modularity, which is wh
 comes before M3.
 
 **Current state.** Session 2: Mirror Lemma L3 strongly supported (E9–E12); route R opened
-and ranked above M1. R1 done (theorem). Next: R2 (transducer enumeration).
+and ranked above M1. R1 done (theorem). R2 done: Transducer Theorem (E14, exact) and survey E15 (active-memory
+poles are common). Next: R3/R4 through the line–mirror model (research-log, session 3 plan).
 
 ## T2 (quick win, publishable note): average-case behaviour of the lollipop walk
 

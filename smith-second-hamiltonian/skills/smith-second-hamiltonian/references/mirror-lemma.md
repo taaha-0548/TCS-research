@@ -117,3 +117,38 @@ closes to projects to C0/X or C1(H). ∎
 3. **Lower bounds.** The step count of G equals the steps spent along the line plus the
    steps spent inside each excursion. A family whose poles reflect many times gives long
    walks. Check whether the Krawczyk/Cameron analyses are an instance of this.
+
+## Transducer Theorem (session 2)
+
+Status: **follows from the case analysis above (sketch below); checked exactly by E14.**
+
+The cases where the endpoint lies inside X (B1 runs: case 2a; B3 runs: cases 3a and 3b) only
+use edges inside X and the three port labels. So what happens during a visit to X is decided
+by X alone and by its internal state, never by the host. That state is the Hamiltonian path Q
+of X that the current path uses, oriented from the port nearer v0.
+
+- **B1 visit** (the host walk deletes x's entry edge, case 1b): X is re-rooted at p_out and the
+  endpoint wanders inside X (case 2a). It leaves through a cut edge (case 2b): through p_in =
+  REFLECT, through the third port = TRANSMIT.
+- **B3 visit** (the host walk adds the unused cut edge at the third port, case 1c): X splits
+  into X1 and X2, and the walk ping-pongs between the two host states Y1·x·Y2 and Y1·x·rev(Y2)
+  (case 3b-i) until it exits (case 3b-ii). TRANSMIT iff the number of 3b-i moves is odd.
+- Every visit returns (TRANSMIT or REFLECT, new path Q', number of steps). `scripts/transducer.py`
+  computes the table; `scripts/show_transducer.py` prints it.
+- **Exactness (E14):** simulating the host walk on H and consulting the table at each visit
+  reproduces the walk on G exactly, with the same final cycle and the same step count, in 4,691
+  of 4,691 runs (20 poles, hosts up to n = 50).
+
+So **the lollipop walk on G equals the walk on G/X plus a finite reversible automaton for X**.
+Disjoint 3-poles compose: one automaton each.
+
+## Pole classes (E15)
+
+- *transparent*: never reflects (triangle, prism−v, K33−v, …).
+- *fixed mirror*: reflects, but transmit or reflect never depends on Q (cube−v: every B1 visit
+  transmits, every B3 visit reflects).
+- *active memory*: transmit or reflect depends on Q. Example rand10−v#0 (h = 3, 3, 1): for
+  pair {a,b} oriented a→b, a B1 visit transmits from path 0 but reflects from paths 1 and 2,
+  and the reflection swaps 1 ↔ 2.
+- Share of random poles with active memory: 12% (|X| = 7), 35% (9), 55% (11), 77% (13),
+  70% (15).

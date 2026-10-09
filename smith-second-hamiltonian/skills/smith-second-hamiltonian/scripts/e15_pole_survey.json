@@ -1,0 +1,27 @@
+{
+ "8": {
+  "transparent": 107,
+  "active-memory": 18,
+  "fixed-mirror": 25
+ },
+ "10": {
+  "fixed-mirror": 39,
+  "transparent": 58,
+  "active-memory": 53
+ },
+ "12": {
+  "fixed-mirror": 34,
+  "active-memory": 83,
+  "transparent": 33
+ },
+ "14": {
+  "fixed-mirror": 7,
+  "active-memory": 46,
+  "transparent": 7
+ },
+ "16": {
+  "fixed-mirror": 13,
+  "active-memory": 42,
+  "transparent": 5
+ }
+}

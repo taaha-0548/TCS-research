@@ -73,6 +73,31 @@ Result files are in `scripts/` with the same E-number.
 - Novelty: not found in literature searches; compare against the proof of Thomassen's 3-cut
   reduction and against Cameron 2001 before claiming it.
 
+### E14: Transducer Theorem (`transducer.py`, `exp_transducer_check.py`, `show_transducer.py`)
+- A pole's visits are host-independent (from cases 2a, 3a, 3b of the proof). Each visit is a
+  B1 or B3 visit, and returns (TRANSMIT/REFLECT, new internal path, steps).
+- Host walk plus transducer reproduces G's walk exactly, with the same final cycle and step
+  count: 4,691 / 4,691 runs.
+- It also predicts E11 without fitting: the transducer reflects for exactly the poles that
+  were non-transparent.
+
+### E15: survey of pole classes (`exp_pole_survey.py`, `e15_pole_survey.json`)
+- Active-memory poles (transmit or reflect depends on the internal path): 12% at |X| = 7,
+  rising to ~70–77% at |X| = 13–15. Memory gadgets are plentiful.
+- Verdict: R2 done. The raw material for R3 exists; the open question is wiring (R4).
+
+### Next steps (session 3)
+1. Formalise the **line–mirror model**: a particle on the host line S_0..S_L moving ±1, with
+   sites where poles act (transmit/reflect plus a state update, shared among all sites of the
+   same pole). Ask whether predicting the exit end is PSPACE-hard for arbitrary reversible
+   mirror automata. If not even that holds, route R fails at R4.
+2. Read arXiv 2207.07229 in full: gadget definitions, and whether a linear "track" with
+   interleaved tunnels of interacting gadgets suffices for their hardness.
+3. Find out which visit sequences a host H can produce (which sites, in what order and
+   orientation). Start with small hosts and 2 poles.
+4. Independent check of the Mirror Lemma proof; novelty check against Thomassen's 3-cut
+   reduction and Cameron 2001.
+
 ---
 
 ## Session 1 (October 2026): literature map, simulator, first experiments
