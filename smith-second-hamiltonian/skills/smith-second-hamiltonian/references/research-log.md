@@ -5,6 +5,25 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 6d (October 2026): Phase 3: towers as Turing machines (`scripts/phase3/`, `t1-roadmap.md`)
+
+- Reframing: a tower of a fixed gadget P' is a Turing machine (levels = cells, calls = right moves,
+  returns = left moves); the initial cycle is the input tape and the returned cycle is the output
+  tape. Full write-up: `references/t1-roadmap.md`.
+- Cell procedures (`procedure.py`, `survey_procedures.py`): most P' are answer-sensitive and
+  branching. (A first metric was wrong: it grouped by the full answer prefix, which is trivially
+  deterministic; fixed.)
+- Minimal-machine growth (`tower.py`): bounded / polynomial / exponential-incompressible regimes
+  (12 → 48 → 192 → 768 → 3072).
+- Clock × tower (`clock_tower.py`): trivial for the tried towers (they reflect the first visit).
+  Single-gadget hosts can reflect several times (real hosts: 1,338 with 2 reflections, 151 with
+  ≥ 4; none with exactly 3, an unexplained parity pattern).
+- Calls per visit (`calls_per_visit.py`): grows with depth for some P' (3, 4, 5, 7, 10), so
+  shuttling is possible.
+- Next: S1 (recursive bounce machine universality, abstract), then S2 (gadget compiler).
+
+---
+
 ## Session 6c (October 2026): Phase 2 (a) clock and (b) power of line–mirror systems
 
 ### (a) Clock Theorem (`phase2/clock.py`, `clock_check.py`): exact
