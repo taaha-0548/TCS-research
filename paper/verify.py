@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Reproducibility script for "Longer Thomason chains via gadget composition".
+"""Reproducibility script for "Longer Thomason chains via 3-pole composition".
 
 Standalone (Python 3.8+, standard library only). Checks every computational claim of the paper:
   [1] K: cubic, exactly 3 Hamiltonian cycles; P0 = K - r is simple (one Ham path per port pair).
   [2] The 12 visits of P0: all TRANSMIT; their costs c0; the passage matrix M (Lemma C).
-  [3] Exact algebra: c_{k+1} = c0 + M c_k; growth certificate M_R u >= (29477/10000) u on the
-      reachable set R, in exact rational arithmetic.
+  [3] Exact algebra: c_{k+1} = c0 + M c_k; the reachable set R; the two printed certificates of
+      Table 3 (M_R u >= 2947/1000 u and M_R u' >= 29477/10000 u'), in exact rational arithmetic.
   [4] End-to-end: build G_k explicitly, run Thomason's lollipop algorithm from (v0, v1) = (0, 1),
       compare with the formula 4 + c_{k-1}[ca/B3]  (k = 1..KMAX).
   [5] Graph class for small k: cubic, exactly 3 Hamiltonian cycles (exhaustive), 3-edge-connected.
-Run:  python3 verify.py [KMAX]      (KMAX = 9 takes about a minute)."""
+Run:  python3 verify.py [KMAX]      (default KMAX = 12, all of Table 1; about 2 seconds)."""
 import sys, itertools
 from fractions import Fraction as F
 
@@ -209,6 +209,13 @@ def main(KMAX):
     check(all(sum(F(MR[i][j]) * u[j] for j in range(len(Rl))) >= lam * u[i] for i in range(len(Rl))) and min(u) > 0,
           f"M_R u >= {lam} u exactly, u > 0 on R ({len(Rl)} reachable entries)")
     print(f"    certified base per vertex: (29477/10000)^(1/6) = {float(lam) ** (1/6):.6f}")
+    names = [keys[i][0] + "/" + keys[i][1] for i in Rl]
+    check(names == ["ab/B1", "ab/B3", "ac/B1", "ac/B3", "ba/B3", "bc/B1", "bc/B3", "ca/B3", "cb/B1", "cb/B3"],
+          f"R = the ten types other than ba/B1, ca/B1")
+    for lam_t, vec in ((F(2947, 1000), [77, 442, 227, 442, 330, 227, 330, 227, 77, 227]),
+                       (F(29477, 10000), [746, 4283, 2199, 4283, 3198, 2199, 3198, 2199, 746, 2199])):
+        check(all(sum(MR[i][j] * vec[j] for j in range(len(Rl))) >= lam_t * vec[i] for i in range(len(Rl))),
+              f"Table 3 vector {vec[:3]}...: M_R u >= {lam_t} u exactly")
     c = [[c0[e] for e in keys]]
     for _ in range(KMAX): c.append([c[0][i] + sum(M[i][j] * c[-1][j] for j in range(12)) for i in range(12)])
 
@@ -228,4 +235,4 @@ def main(KMAX):
     print("\nALL CHECKS PASSED" if ok else "\nSOME CHECK FAILED"); return ok
 
 if __name__ == "__main__":
-    sys.exit(0 if main(int(sys.argv[1]) if len(sys.argv) > 1 else 9) else 1)
+    sys.exit(0 if main(int(sys.argv[1]) if len(sys.argv) > 1 else 12) else 1)

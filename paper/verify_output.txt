@@ -33,7 +33,10 @@
 [3] exact recursion and growth certificate
   ok   M_R u >= 29477/10000 u exactly, u > 0 on R (10 reachable entries)
     certified base per vertex: (29477/10000)^(1/6) = 1.197422
-[4] end-to-end: lollipop walk on G_k from (0,1), k = 1..10
+  ok   R = the ten types other than ba/B1, ca/B1
+  ok   Table 3 vector [77, 442, 227]...: M_R u >= 2947/1000 u exactly
+  ok   Table 3 vector [746, 4283, 2199]...: M_R u >= 29477/10000 u exactly
+[4] end-to-end: lollipop walk on G_k from (0,1), k = 1..12
   ok   k= 1 n= 14: steps =       10, formula 4 + c_(k-1)[ca/B3] = 10
   ok   k= 2 n= 20: steps =       25, formula 4 + c_(k-1)[ca/B3] = 25
   ok   k= 3 n= 26: steps =       73, formula 4 + c_(k-1)[ca/B3] = 73
@@ -44,6 +47,8 @@
   ok   k= 8 n= 56: steps =    16060, formula 4 + c_(k-1)[ca/B3] = 16060
   ok   k= 9 n= 62: steps =    47338, formula 4 + c_(k-1)[ca/B3] = 47338
   ok   k=10 n= 68: steps =   139537, formula 4 + c_(k-1)[ca/B3] = 139537
+  ok   k=11 n= 74: steps =   411313, formula 4 + c_(k-1)[ca/B3] = 411313
+  ok   k=12 n= 80: steps =  1212430, formula 4 + c_(k-1)[ca/B3] = 1212430
 [5] graph class, small k (exhaustive)
   ok   k=0 n=8: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected
   ok   k=1 n=14: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected

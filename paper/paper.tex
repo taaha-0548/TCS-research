@@ -37,18 +37,21 @@ of a cubic graph and one of its edges, it walks through a sequence of Hamiltonia
 stops at a second Hamiltonian cycle through that edge. The walk can be exponentially long. The
 best known lower bound, due to Bria\'nski and Szady, is $\Omega(1.1812^n)$ steps on 3-connected
 planar cubic graphs. We construct 3-connected planar cubic graphs with exactly three Hamiltonian
-cycles on which the algorithm takes $\Theta(\rho^{n/6}) = \Theta(1.19742^n)$ steps, where
-$\rho = 2.94771\ldots$ is the largest root of $\lambda^4-2\lambda^3-2\lambda^2-2\lambda-1$.
+cycles on which the algorithm takes $\Theta(\rho^{n/6})$ steps, where
+$\rho = 2.94771\ldots$ is the largest root of $\lambda^4-2\lambda^3-2\lambda^2-2\lambda-1$. Since
+$\rho^{1/6} = 1.197422\ldots$, this is $\Omega(1.19742^n)$.
 
 The construction comes from a general method for analysing the lollipop walk across 3-edge cuts.
 We prove that, across a 3-edge cut, the walk either behaves exactly as in the graph with one
-side contracted, or turns back (the \emph{Mirror Lemma}). Each side of such a cut acts as a
-finite automaton that does not depend on the rest of the graph (the \emph{Transducer Theorem}).
+side contracted, or turns back (the \emph{Mirror Lemma}). The side of such a cut away from the
+start acts as a finite automaton that does not depend on the rest of the graph (the
+\emph{Transducer Theorem}).
 For sides in which every pair of ports is joined by a unique Hamiltonian path, the automata never
 turn the walk back, and nested copies compose by an exact linear recursion. The growth rate of a
 nested family is therefore the spectral radius of a small integer matrix computed from a
-constant-size gadget, here a 7-vertex 3-pole. An exhaustive search shows that no nested family
-built from a base graph with at most 14 vertices does better.
+constant-size gadget, here a 7-vertex 3-pole. An exhaustive search shows that no nested family of
+this kind (simple poles, the same gadget at every level) built from a base graph with at most 14
+vertices does better.
 \end{abstract}
 
 \section{Introduction}
@@ -60,18 +63,20 @@ Hamiltonian cycle has at least three. Thomason~\cite{Thomason78} gave a construc
 class PPA~\cite{Papadimitriou94}: finding a second Hamiltonian cycle in a cubic graph, given one,
 is a total search problem in PPA. It is not known to be solvable in polynomial time or to be
 PPA-complete. Eppstein~\cite{Eppstein23} showed that computing the specific cycle returned by the
-lollipop algorithm lies in FP$^{\textsf{PSPACE}}$, and asked whether it is complete for that class.
+lollipop algorithm lies in FP$^{\textsf{PSPACE}}$, and left open whether it is complete for that
+class.
 
 \paragraph{Exponential lower bounds.} Since the lollipop algorithm follows a path in an
 exponentially large implicit graph, it can be slow. Krawczyk~\cite{Krawczyk99} gave the first
 family of planar cubic graphs on which it takes exponentially many steps; Cameron~\cite{Cameron01}
-corrected and generalised the construction. Zhong~\cite{Zhong18} answered a question of
-Thomassen by giving cyclically 4-edge-connected bipartite families with $\Theta(2^{n/16})$ steps.
+corrected and generalised the construction. Zhong~\cite{Zhong18} gave cyclically
+4-edge-connected cubic bipartite families with $\Theta(2^{n/16})$ steps, answering a question
+recorded as Problem~5.5 in~\cite{IML15}.
 Bria\'nski and Szady~\cite{BrianskiSzady22} gave 3-connected planar cubic graphs with
 $\Omega(1.1812^n)$ steps. This is the best known base~\cite{BKN24}, and they asked whether
 families with faster growth exist. On the positive side, the walk takes at most $n$ steps on cubic
-bipartite Pfaffian graphs~\cite{BKN24}. The fastest known exact algorithm for a second
-Hamiltonian cycle in a cubic graph runs in $O(1.2311^n)$ time~\cite{DMSZ20}.
+bipartite Pfaffian graphs~\cite{BKN24}. A second Hamiltonian cycle in a cubic graph can be found
+deterministically in polynomial space and $O(1.23103^n)$ time~\cite{DMSZ20}.
 
 \paragraph{Our results.}
 \begin{theorem}[main theorem]\label{thm:main}
@@ -79,9 +84,10 @@ Let $\rho = 2.9477115868\ldots$ be the largest real root of
 $\lambda^4 - 2\lambda^3 - 2\lambda^2 - 2\lambda - 1$. For every $k \ge 1$ there is a 3-connected
 planar cubic graph $G_k$ on $n = 8+6k$ vertices with exactly three Hamiltonian cycles, together
 with a Hamiltonian cycle $C_k$ and an edge $v_0v_1 \in C_k$, such that Thomason's algorithm started
-from $(C_k, v_0v_1)$ performs exactly $4 + c_{k-1}$ steps, where $c_{k-1} = \Theta(\rho^{k})$ is
-given by an explicit linear recursion (\cref{sec:proof}). Consequently it performs
-$\Theta(\rho^{n/6}) = \Theta(1.19742^n)$ steps.
+from $(C_k, v_0v_1)$ performs exactly $4 + c_{k-1}(\mathrm{ca/B3})$ steps, where
+$c_{k-1}(\mathrm{ca/B3}) = \Theta(\rho^{k})$ is given by an explicit linear recursion
+(\cref{sec:proof}). Consequently it performs $\Theta(\rho^{n/6})$ steps. Since
+$\rho^{1/6} = 1.1974227\ldots$, this is $\Omega(1.19742^n)$.
 \end{theorem}
 
 \begin{table}[h]
@@ -100,8 +106,9 @@ $k = 1, \dots, 12$. Consecutive ratios approach $\rho \approx 2.9477$.}
 
 \Cref{thm:main} answers the question of Bria\'nski and Szady positively for their class of
 graphs. More important than the constant, perhaps, is the method behind it. It consists of three
-structural results about the lollipop walk across a 3-edge cut, which hold for arbitrary cubic
-graphs:
+structural results about the lollipop walk across a 3-edge cut. They hold in every cubic graph,
+for every 3-edge cut whose edges form a matching and whose side $X$ is away from the start
+vertex:
 \begin{itemize}
 \item \textbf{Mirror Lemma} (\cref{thm:mirror}). Let $X$ be one side of a 3-edge cut. Then the
 cycle returned on $G$ projects either to the cycle returned on $G/X$, or to the input cycle; in the
@@ -259,7 +266,8 @@ $w \in X$.
 \item[(i)] $w \in X_2$. Then $s \in X_2$ and $\pi(P') = \pi(P)$.
 \item[(ii)] $w \in X_1$, $w \ne p_b$. Then $s \in X_1$. Writing $X_1 = X_{1a} \cdot X_{1b}$ with
 $X_{1a}$ ending at $w$, $P' = Y_1 \cdot (X_{1a} \cdot \rev(X_2)) \cdot \rev(Y_2) \cdot \rev(X_{1b})$
-has type B3.
+has type B3. Its first $X$-piece $X_{1a} \cdot \rev(X_2)$ now ends at the old $p_c$, so the roles
+of $p_b$ and $p_c$ are exchanged.
 \item[(iii)] $w = p_b$. Then $s = q_b$, and $P' = Y_1 \cdot (X_1 \cdot \rev(X_2)) \cdot \rev(Y_2)$
 has type A.
 \end{enumerate}
@@ -272,7 +280,7 @@ along an unused cut edge. This proves the first claim.
 
 For the consequence, the walk on $G$ follows the component of $\cG(G)$ from $S_0(G)$ to its other
 end $T$. Its image under $\pi$ is a connected subgraph of the component $L$ of $\cG(H)$ that
-contains $\pi(S_0(G)) = S_0(H)$, and $L$ is a path whose two ends close to $C/X$ and to the cycle
+contains $\pi(S_0(G)) = S_0(H)$ (here $v_{n-1} \in Y$ by the standing hypothesis), and $L$ is a path whose two ends close to $C/X$ and to the cycle
 returned on $H$. The endpoint of $T$ is adjacent to $v_0$, so it lies in $Y$ by the standing
 hypothesis. Hence $T$ has type A, and $\pi(T)$ is a state of $L$ whose endpoint is adjacent to
 $v_0$, i.e.\ an end of $L$. Finally, $\pi(T) = S_0(H)$ means that the cycle closed by $T$ uses
@@ -282,9 +290,9 @@ the same edges as $C$ outside $X$.
 \section{Visits and the Transducer Theorem}\label{sec:transducer}
 
 \begin{definition}[visits]
-A \emph{visit} to $X$ is a maximal run of consecutive steps during which the endpoint lies in $X$,
-together with the step that starts the run (its \emph{entry}) and the step that ends it (its
-\emph{exit}). By the proof of \cref{thm:mirror}, a visit starts from a state of type A whose
+A \emph{visit} to $X$ is a maximal run of consecutive states of the walk whose endpoint lies in
+$X$ (states of type B1 or B3), together with the step into the run (its \emph{entry}) and the step
+out of it (its \emph{exit}). By the proof of \cref{thm:mirror}, a visit starts from a state of type A whose
 $X$-segment is a Hamiltonian path $Q$ of $X$, which we orient from $p_\inn$ to $p_{\mathrm{out}}$.
 It has one of two \emph{kinds}:
 \begin{description}
@@ -303,10 +311,12 @@ For every 3-pole $X$, every oriented Hamiltonian path $Q$ of $X$ between two por
 $\kappa \in \{\mathrm{B1}, \mathrm{B3}\}$, there are an outcome (transmit or reflect), a successor
 path $Q'$ and a cost $c_X(Q,\kappa)$, such that every visit of kind $\kappa$ that starts with
 $X$-segment $Q$, in any host graph satisfying the standing hypothesis, has this outcome, leaves
-$X$-segment $Q'$, and has this cost. Moreover:
+$X$-segment $Q'$, and has this cost. More strongly, the whole sequence of steps of the visit,
+viewed as operations on the $X$-pieces of the state, depends only on $(Q, \kappa)$. Moreover:
 \begin{enumerate}
-\item outside visits, every step of the walk on $G$ projects to the corresponding step of the walk
-on $H$;
+\item outside visits, every step of the walk on $G$ projects to the step that the rule of
+\cref{sec:prelim} prescribes on $H$ from the projected state and the corresponding previous
+attachment;
 \item after a transmitting visit, the walk on $G$ is at a lift of the state reached by the walk on
 $H$, with the same previous attachment, where ports are identified with $x$;
 \item a reflecting visit ends at a lift of the state from which its entry was made.
@@ -320,9 +330,11 @@ attachment lies in $X$ and its successor too, so only the $X$-segment changes (c
 the walk leaves along an unused cut edge (case B1(ii)). In type B3 states the steps are of the
 forms B3(i), B3(ii), which re-splits the $X$-pieces and reverses $Y_2$ as an opaque block, and the
 exit B3(iii). Hence the sequence of $X$-pieces, with their order and orientation, evolves as a
-function of $Q$ and $\kappa$ alone. The previous attachment lies in $X$ after the first internal
-step. At the first step of a B1 visit it is $q_\inn$, so that visit cannot leave through $p_\inn$
-immediately.
+function of $Q$ and $\kappa$ alone. After a B3 entry the previous attachment is the port $p_j$,
+which lies in $X$; in a B1 visit it lies in $X$ after the first internal step. At the first step
+of a B1 visit it is $q_\inn$, so that visit cannot leave through $p_\inn$ immediately. The cut
+edges are part of the data of $X$, and none of them goes to $v_0$, so no other information about
+the host enters.
 
 \emph{Item 1.} Outside visits the endpoint $z$ lies in $Y$. The edges at $z$, its predecessor and
 the previous attachment correspond in $G$ and $H$ (a port corresponding to $x$). So the admissible
@@ -330,7 +342,10 @@ edge corresponds as well, and by cases A(i)--(iii) the step projects to the step
 $H$.
 
 \emph{Items 2 and 3 for B1.} The entry is the step $S \to S^*$ of the walk on $H$ that makes $x$
-the endpoint by deleting $q_\inn x$, after which the previous attachment is $q_\inn$. The exit
+the endpoint by deleting $q_\inn x$, after which the previous attachment is $q_\inn$. In $G$ the
+state after the entry is $Y_1 \cdot \rev(Y_2) \cdot \rev(Q)$, which ends at $p_\inn$ and whose only
+cut edge on the path is $e_{\mathrm{out}}$. (So in the notation of case B1, the entry port of this
+B1 state is $p_{\mathrm{out}}$, and the exit is through $p_\inn$ or $p_c$.) The exit
 rotates along some cut edge $p_jq_j$ and projects to the rotation of $S^*$ along $xq_j$ (case
 B1(ii)), after which the previous attachment is $q_j$ in both graphs. The walk on $H$ continues
 from $S^*$ along $xq_c$, where $p_c$ is the third port. So an exit through $p_c$ is that step
@@ -356,10 +371,12 @@ If $X$ is simple, then every visit to $X$ transmits.
 
 \begin{proof}
 A state of $H$ of type A (endpoint different from $x$, with $x$ interior) has exactly one lift to
-$G$. Its $Y$-part is determined, and its $X$-segment is the unique Hamiltonian path of $X$ between
-the two ports it uses. By \cref{thm:transducer}(3), a reflecting visit ends at a lift of the state
-from which its entry was made. That state has type A, so its lift is the state the walk occupied
-before the visit. The walk on $G$ would then revisit a state, which is impossible, since it follows
+$G$ of type A. Its $Y$-part is determined, and its $X$-segment is the unique Hamiltonian path of
+$X$ between the two ports it uses. (If its endpoint is adjacent to $x$, it may also have lifts of
+type B3.) Every visit ends in a state of type A, since both kinds of exit, cases B1(ii) and
+B3(iii), produce type A. By \cref{thm:transducer}(3), a reflecting visit ends at a lift of the
+state from which its entry was made. That state has type A, so the visit ends at its unique
+type-A lift, which is the state the walk occupied before the visit. The walk on $G$ would then revisit a state, which is impossible, since it follows
 a path in $\cG(G)$.
 \end{proof}
 
@@ -368,8 +385,9 @@ Let $P$ be a 3-pole, and let $X \subset P$ be a simple 3-pole with $N(X) \subset
 $P' = P/X$, with $X$ contracted to a vertex $x$. Then:
 \begin{enumerate}
 \item[(a)] $h_{ij}(P) = h_{ij}(P')$ for every pair of ports;
-\item[(b)] $P$ and $P'$ have the same outcomes and successors, under the bijection of (a);
-\item[(c)] for every oriented path $Q$ of $P$ and kind $\kappa$,
+\item[(b)] for every visit $(Q, \kappa)$ to $P$ that occurs in some host satisfying the standing
+hypothesis, $P$ and $P'$ have the same outcome and successor, under the bijection of (a);
+\item[(c)] for every such visit,
 \[
 c_P(Q,\kappa) \;=\; c_{P'}(Q/X,\kappa) \;+\; \sum_f M_{(Q/X,\kappa),\,f}\; c_X(f),
 \]
@@ -381,20 +399,26 @@ of $X$ that the path uses at that moment.
 \end{lemma}
 
 \begin{proof}
-(a) A Hamiltonian path of $P$ between two ports crosses $\delta(X)$ exactly twice. So it consists
-of a Hamiltonian path of $P'$ together with a Hamiltonian path of $X$ between the corresponding
-ports, and the latter is unique.
+(a) The ports of $P$ lie outside $X$: a port of $P$ has a neighbour outside $P$, which would
+otherwise lie in $N(X) \setminus P$. So a Hamiltonian path of $P$ between two ports crosses
+$\delta(X)$ an even number of times, at most three, and at least once, hence exactly twice. It
+therefore consists of a Hamiltonian path of $P'$ together with a Hamiltonian path of $X$ between
+the corresponding ports. Since $h_{ij}(X) = 1$, the latter exists and is unique, so this is a
+bijection.
 
 (b), (c) Fix a host $G = H_0[y \leftarrow P]$ satisfying the standing hypothesis. Since
 $v_0 \notin P \cup N(P)$ and $N(X) \subseteq P$, the standing hypothesis also holds for $X$, and
 $G/X = H_0[y \leftarrow P']$. By \cref{lem:simple} and \cref{thm:transducer}, the walk on $G$ is
 the walk on $G/X$ in which each passage through $x$ is replaced by a transmitting visit to $X$.
-That visit starts in the $X$-segment forced by (a), and contributes $c_X(f)$ extra steps.
+That visit starts in the $X$-segment forced by the simplicity of $X$, and contributes $c_X(f)$
+extra steps.
 
 Every passage lies inside a visit to $P'$, possibly sharing its entry or exit. A B3 passage starts
-and ends with the endpoint in $N(x) \subseteq P'$. A B1 passage either lies inside a visit, or its
-step is the entry of the visit (when that entry deletes the edge from a port of $P'$ to $x$); its
-final step, the rotation at $x$, may be the exit of the visit. In every case the extra steps lie
+and ends with the endpoint in $N(x) \subseteq P'$. Since $x$ is not a port of $P'$ (by the
+argument in (a)), a B1 passage either lies inside a visit, or its step is the entry of the visit;
+the latter happens only for an entry of kind B3 that attaches to a port of $P'$ whose successor is
+$x$, so that the entry deletes the edge from that port to $x$. Its final step, the rotation at
+$x$, may be the exit of the visit, of the form B3(iii). In every case the extra steps lie
 strictly inside the window of the corresponding visit to $P$. Therefore visits to $P$ in $G$ and
 visits to $P'$ in $G/X$ correspond one-to-one, with the same kind, starting state up to
 contraction, outcome and successor, and their costs differ by the inserted costs. The passages
@@ -403,9 +427,9 @@ on the host.
 \end{proof}
 
 \begin{remark}
-\Cref{lem:composition} speaks about visit kinds that occur in some walk. In \cref{sec:proof} we use
-only kinds that are reachable from a kind occurring in the walk under consideration, so this is no
-restriction.
+Parts (b) and (c) speak only about visits that occur in some host. If a visit to $P$ occurs in a
+host $G$, every passage during it is a visit to $X$ occurring in the same host. In
+\cref{sec:proof} we use only visit types that occur, so this is no restriction.
 \end{remark}
 
 \section{The construction}\label{sec:construction}
@@ -465,13 +489,17 @@ cycles, and $P_k$ is simple.
 \end{lemma}
 
 \begin{proof}
-\emph{Simplicity and three cycles.} $P_0$ is simple (\cref{tab:P0}). If $P_{k-1}$ is simple,
-\cref{lem:composition}(a), applied to $P_{k-1} \subset P_k$ with $P_k / P_{k-1} = P_0$, shows that
-$P_k$ is simple. A Hamiltonian cycle of $G_k = K[x \leftarrow P_{k-1}]$ consists of a Hamiltonian
-cycle of $K$, which uses a pair of edges at $x$, together with the Hamiltonian path of $P_{k-1}$
-between the corresponding ports. $K$ has three Hamiltonian cycles, and by Smith's theorem each edge
-lies in exactly two of them, so each pair of edges at $x$ is used by exactly one. Hence $G_k$ has
-exactly three Hamiltonian cycles.
+\emph{Simplicity and three cycles.} $P_0 = K - r$ is simple. Indeed, each of the three
+Hamiltonian cycles of $K$ uses one of the three pairs of edges at $r$; if pair $\{i,j\}$ is used
+$m_{ij}$ times, then edge $i$ lies in $m_{ij} + m_{ik}$ cycles, which is even by Smith's theorem
+and at most $3$, and the $m$'s sum to $3$. This forces $m_{ij} + m_{ik} = 2$ for every $i$, hence
+$m_{ij} = 1$ for every pair, and $h_{ij}(P_0) = m_{ij} = 1$ (also checked in \cref{tab:P0}). If
+$P_{k-1}$ is simple, \cref{lem:composition}(a), applied to $P_{k-1} \subset P_k$ with
+$P_k / P_{k-1} = P_0$, shows that $P_k$ is simple. A Hamiltonian cycle of
+$G_k = K[x \leftarrow P_{k-1}]$ crosses $\delta(P_{k-1})$ exactly twice, so it consists of a
+Hamiltonian cycle of $K$, which uses a pair of edges at $x$, together with a Hamiltonian path of
+$P_{k-1}$ between the corresponding ports, and this path is unique. Hence $G_k$ has exactly as
+many Hamiltonian cycles as $K$, namely three.
 
 \emph{3-connectivity.} For cubic graphs, 3-connectivity is equivalent to 3-edge-connectivity. Let
 $G$ and $K$ be 3-edge-connected cubic graphs, $P = G - r$, and suppose $F$ is an edge cut of
@@ -479,10 +507,12 @@ $K' = K[x \leftarrow P]$ with $|F| \le 2$ and sides $A, B$. If $V(P)$ lies on on
 it gives an edge cut of size $|F|$ in $K$, a contradiction. Otherwise let $F_P = F \cap E(P)$.
 Placing $r$ on either side of the induced partition of $V(G)$ gives edge cuts of $G$ of sizes
 $|F_P|$ plus the number of ports on the other side, and both are at least $3$. Adding the two
-inequalities gives $2|F_P| + 3 \ge 6$, so $|F_P| = 2 = |F|$. Then no edge at a port is in $F$, so
-each port lies on the same side as its neighbour in $K$. Placing $x$ on either side therefore
-gives edge cuts of $K$ whose sizes are the numbers of ports on the two sides, and both would have
-to be at least $3$, which is impossible with three ports.
+inequalities gives $2|F_P| + 3 \ge 6$, so $|F_P| = 2 = |F|$. Then $F \subseteq E(P)$: no wiring
+edge and no edge of $K - x$ is in $F$, so each port lies on the same side as its neighbour in $K$.
+With $|F_P| = 2$, each of the two inequalities says that the other side contains at least one
+port, so both sides contain ports, and hence vertices of $K - x$. Placing $x$ on either side
+therefore gives edge cuts of $K$ with both sides nonempty, whose sizes are the numbers of ports on
+the other side. Both would have to be at least $3$, which is impossible with three ports.
 
 \emph{Planarity.} Deleting $r$ from a plane embedding of $G_{k-1}$ leaves a face whose boundary
 meets the three ports in the cyclic order of the rotation at $r$. Deleting $x$ from a plane
@@ -525,15 +555,30 @@ cost vector $c_0$ and the passage matrix $M$.}
 \label{tab:P0}
 \end{table}
 
+Let $R$ be the set of visit types reachable from ca/B3 in the directed graph of $M$ (defined
+below), with an arc $i \to j$ when $M_{ij} > 0$. It consists of the ten types other than ba/B1 and
+ca/B1, and it is strongly connected.
+
 \begin{lemma}\label{lem:recursion}
-For all $k \ge 1$, $P_k$ has the same outcome table as $P_0$, and its cost vector satisfies
-$c_k = c_0 + M c_{k-1}$.
+Every type $i \in R$ occurs as a visit to $P_k$, for every $k \ge 0$, in the walk on some $G_m$.
+For all $k \ge 1$ and $i \in R$, the visit of type $i$ to $P_k$ transmits with the same successor
+as in $P_0$, and
+\[
+c_k(i) = c_0(i) + \sum_{j} M_{ij}\, c_{k-1}(j),
+\]
+where only $j \in R$ contribute.
 \end{lemma}
 
 \begin{proof}
-Induction on $k$, applying \cref{lem:composition} to $X = P_{k-1} \subset P = P_k$. This is
-allowed since $P_{k-1}$ is simple (\cref{lem:class}) and $N(P_{k-1}) = N_K(x) \subseteq P_k$, and
-$P_k / P_{k-1} = P_0$.
+By \cref{thm:transducer} applied to $X = P_{m-1}$ in $G_m$, the walk on $G_m$ contains a visit of
+type ca/B3 to $P_{m-1}$ (see the proof of \cref{thm:main}). If a visit of type $i$ to $P_k$ occurs
+in the walk on $G_m$ and $M_{ij} > 0$, then the visit contains a passage of type $j$ through the
+copy of $x$ in $P_k$, which is a visit of type $j$ to $P_{k-1}$ in the same walk
+(\cref{lem:composition}). By induction on the distance $d$ from ca/B3, a type at distance $d$
+occurs as a visit to $P_{m-1-d}$ in $G_m$ for every $m \ge d+1$; taking $m = k+1+d$ gives the
+first claim. For the second, apply \cref{lem:composition} to $X = P_{k-1} \subset P = P_k$. This
+is allowed since $P_{k-1}$ is simple (\cref{lem:class}), $N(P_{k-1}) = N_K(x) \subseteq P_k$, and
+$P_k / P_{k-1} = P_0$. Since $R$ is closed under the arcs of $M$, only $j \in R$ contribute.
 \end{proof}
 
 With the visit types ordered ab/B1, ab/B3, ac/B1, ac/B3, ba/B1, ba/B3, bc/B1, bc/B3, ca/B1, ca/B3,
@@ -559,8 +604,9 @@ A direct computation gives the characteristic polynomial
 \det(\lambda I - M) = \lambda^2(\lambda-1)^2(\lambda+1)^2(\lambda^2+1)(\lambda^4 - 2\lambda^3 - 2\lambda^2 - 2\lambda - 1).
 \]
 The quartic factor is irreducible over $\mathbb{Q}$, and its largest real root
-$\rho = 2.9477115868\ldots$ is the spectral radius of $M$. All other eigenvalues have modulus at most
-$1.17$.
+$\rho = 2.9477115868\ldots$ is the spectral radius of $M$, and also of its restriction $M_R$ to
+$R$. All other eigenvalues of $M$ have modulus at most $1$ (the other roots of the quartic have
+moduli $0.584$ and $0.762$).
 
 \begin{proof}[Proof of \cref{thm:main}]
 By \cref{lem:class}, $G_k$ is a 3-connected planar cubic graph on $8+6k$ vertices with exactly three
@@ -574,43 +620,46 @@ with fixed edge $\{0,1\}$ takes 4 steps and passes through $x$ once, in a passag
 \steps(G_k) = 4 + c_{k-1}(\mathrm{ca/B3}).
 \]
 
-\emph{Lower bound.} Let $R$ be the set of visit types reachable from ca/B3 in the directed graph of
-$M$. It consists of the ten types other than ba/B1 and ca/B1, and every type in $R$ occurs in some
-walk, by induction from the passage above. The integer vector $u$ on $R$ given in \cref{tab:cert}
-satisfies $M_R u \ge \frac{2947}{1000}\,u$ componentwise, where $M_R$ is $M$ restricted to $R$. This
-is a finite check, and rows of $M_R$ refer only to columns in $R$. Let
-$\varepsilon = \min_{i \in R} c_0(i)/u_i > 0$. Since $c_k \ge M c_{k-1}$ and $M \ge 0$, induction
-gives $c_k \ge \varepsilon (2947/1000)^k u$ on $R$. Hence
-$\steps(G_k) = \Omega(2.947^k)$.
+\emph{Lower bound.} By \cref{lem:recursion}, the vector $c_k$ restricted to $R$ satisfies
+$c_k = c_0 + M_R c_{k-1}$ on $R$, where $M_R$ is $M$ restricted to $R$. The integer vector $u$ on
+$R$ given in the first column of \cref{tab:cert} satisfies $M_R u \ge \frac{2947}{1000}\,u$
+componentwise; this is a finite check. Let $\varepsilon = \min_{i \in R} c_0(i)/u_i > 0$. Since
+$c_k \ge M_R c_{k-1}$ on $R$ and $M_R \ge 0$, induction gives
+$c_k \ge \varepsilon (2947/1000)^k u$ on $R$. Hence $\steps(G_k) = \Omega(2.947^k)$. The second
+column of \cref{tab:cert} is a vector $u'$ with $M_R u' \ge \frac{29477}{10000}\,u'$, which gives
+$\Omega(2.9477^k)$ in the same way.
 
-\emph{Upper bound.} $c_k = \sum_{j=0}^{k} M^j c_0$, and since $\rho$ is a simple eigenvalue with all
-others of modulus less than $\rho$, $c_k = O(\rho^k)$.
+\emph{Sharp lower bound.} Since $R$ is strongly connected, $M_R$ is irreducible, and by the
+Perron--Frobenius theorem it has an eigenvector $v > 0$ with $M_R v = \rho(M_R)\, v = \rho v$.
+Repeating the argument with $v$ in place of $u$ gives $c_k \ge \varepsilon' \rho^k v$ on $R$, so
+$\steps(G_k) = \Omega(\rho^k)$.
 
-The lower bound can be sharpened to $\Omega(\rho^k)$, since $\rho(M_R) = \rho$ and $M_R$ has a
-positive eigenvector on $R$; the rational certificate in \cref{sec:verification} gives
-$M_R u \ge \frac{29477}{10000} u$. Hence $\steps(G_k) = \Theta(\rho^k) = \Theta(\rho^{n/6})$, and
-$\rho^{1/6} = 1.197421\ldots$
+\emph{Upper bound.} On $R$, $c_k = \sum_{j=0}^{k} M_R^j c_0$. Since $\rho$ is a simple eigenvalue of
+$M_R$ and all others have modulus less than $\rho$, $\|M_R^j\| = O(\rho^j)$, so $c_k = O(\rho^k)$.
+
+Hence $\steps(G_k) = \Theta(\rho^k) = \Theta(\rho^{n/6})$, and $\rho^{1/6} = 1.1974227\ldots$
 \end{proof}
 
 \begin{table}[t]
 \centering\small
-\begin{tabular}{lr}
+\begin{tabular}{lrr}
 \toprule
-type & $u$ \\
+type & $u$ & $u'$ \\
 \midrule
-ab/B1 & 77 \\
-ab/B3 & 442 \\
-ac/B1 & 227 \\
-ac/B3 & 442 \\
-ba/B3 & 330 \\
-bc/B1 & 227 \\
-bc/B3 & 330 \\
-ca/B3 & 227 \\
-cb/B1 & 77 \\
-cb/B3 & 227 \\
+ab/B1 & 77 & 746 \\
+ab/B3 & 442 & 4283 \\
+ac/B1 & 227 & 2199 \\
+ac/B3 & 442 & 4283 \\
+ba/B3 & 330 & 3198 \\
+bc/B1 & 227 & 2199 \\
+bc/B3 & 330 & 3198 \\
+ca/B3 & 227 & 2199 \\
+cb/B1 & 77 & 746 \\
+cb/B3 & 227 & 2199 \\
 \bottomrule
 \end{tabular}
-\caption{An integer vector with $M_R u \ge 2.947\,u$ componentwise on the reachable set $R$.}
+\caption{Integer vectors with $M_R u \ge 2.947\,u$ and $M_R u' \ge 2.9477\,u'$ componentwise on the
+reachable set $R$.}
 \label{tab:cert}
 \end{table}
 
@@ -622,12 +671,14 @@ and $r \notin N_K[x]$. Simplicity forces $K$ to have exactly three Hamiltonian c
 rate per vertex is $\rho(M_R)^{1/(|K|-2)}$, where $R$ is the set of visit types reachable from the
 passages of the walk on $K$ through $x$.
 
-We enumerated all cubic Hamiltonian graphs with at most 14 vertices (as a Hamiltonian cycle plus
-a perfect matching of chords, up to cospectrality) and kept those with exactly three Hamiltonian
-cycles. There are 1, 3, 7 and 24 of them on 8, 10, 12 and 14 vertices. For each, we considered
+We enumerated all Hamiltonian cubic graphs with at most 14 vertices, as a Hamiltonian cycle plus a
+perfect matching of chords, up to isomorphism. There are 5, 17, 80 and 474 of them on 8, 10, 12
+and 14 vertices, in agreement with the known counts. We kept those with exactly three Hamiltonian
+cycles: there are 1, 3, 7 and 24 of them. For each, we considered
 all choices of $x$, $r \notin N[x]$, wiring, Hamiltonian cycle and start. The best per-vertex rates
 are $1.197423$ (8 vertices, our family), $1.184113$ (10), $1.191341$ (12) and $1.197423$ (14). The
-best 14-vertex family is two levels of ours. Mixing gadgets from level to level, so that $c_k =
+best 14-vertex family is two levels of ours. So among nested families of simple poles with the
+same gadget at every level and $|K| \le 14$, ours is optimal. Mixing gadgets from level to level, so that $c_k =
 c_0^{(k)} + M^{(k)} c_{k-1}$, gives the growth rate of a periodic word as
 $\rho(M^{(1)} \cdots M^{(p)})^{1/\sum (|K_i|-2)}$. A beam search over periodic words of length up to
 8 over all 1{,}392 distinct gadget matrices with $|K| \le 12$ found nothing better than
@@ -637,19 +688,24 @@ about $1.189$ per vertex.
 
 \section{Verification}\label{sec:verification}
 
-Every computational ingredient of the proof is re-derived by a short standalone script,
+The computational ingredients of the proof are re-derived by a short standalone script,
 \texttt{verify.py}, supplied with this paper. It uses the Python standard library only and runs in
-under a second. It checks:
+about two seconds. It checks:
 \begin{itemize}
 \item $K$ has exactly three Hamiltonian cycles, and $P_0$ is simple;
 \item all twelve visits of $P_0$ transmit, with the costs and passages of \cref{tab:P0};
-\item the growth certificate, in exact rational arithmetic;
-\item end to end, for $k \le 10$: it builds $G_k$ explicitly, runs Thomason's algorithm from
-$(C_k, \{0,1\})$, and compares the number of steps with $4 + c_{k-1}(\mathrm{ca/B3})$
-(\cref{tab:steps});
-\item for small $k$: cubic, exactly three Hamiltonian cycles (by exhaustive search), and
+\item the reachable set $R$ and both certificates of \cref{tab:cert}, in exact rational
+arithmetic;
+\item end to end, for $k \le 12$: it builds $G_k$ explicitly, runs Thomason's algorithm from
+$(C_k, \{0,1\})$, and compares the number of steps with $4 + c_{k-1}(\mathrm{ca/B3})$, which
+reproduces every entry of \cref{tab:steps};
+\item for $k \le 3$: cubic, exactly three Hamiltonian cycles (by exhaustive search), and
 3-edge-connected.
 \end{itemize}
+The remaining computational claims are not needed for \cref{thm:main} and are checked by separate
+scripts: the search of \cref{sec:search}, with exact isomorphism tests (which also shows that $K$
+is the only cubic graph on 8 vertices with exactly three Hamiltonian cycles), and the direct checks
+of the graph class for larger $n$ reported below.
 We also tested the ingredients independently of this script. An edge-set implementation of the
 algorithm and a brute-force traversal of the full state graph agree with it on all tested graphs.
 The Mirror Lemma and the Transducer Theorem were checked on thousands of random hosts and 3-poles.
@@ -696,7 +752,9 @@ graphs. \emph{J. Comput. System Sci.} 58(3) (1999), 641--647.
 through a given edge in a cubic graph is exponential on Krawczyk's graphs. \emph{Discrete Math.}
 235 (2001), 69--77.
 \bibitem{Zhong18} L.~Zhong. The complexity of Thomason's algorithm for finding a second Hamiltonian
-cycle. \emph{Bull. Aust. Math. Soc.} 98(1) (2018). % TODO: verify page numbers
+cycle. \emph{Bull. Aust. Math. Soc.} 98(1) (2018), 18--26.
+\bibitem{IML15} Problem collection from the IML programme: Graphs, Hypergraphs, and Computing.
+arXiv:1511.00270 (2015).
 \bibitem{BrianskiSzady22} M.~Bria\'nski and A.~Szady. A short note on graphs with long Thomason
 chains. \emph{Discrete Math.} 345(1) (2022), 112624. arXiv:1903.02515.
 \bibitem{BKN24} A.~Bj\"orklund, P.~Kaski and J.~Nederlof. Another Hamiltonian cycle in bipartite
@@ -705,9 +763,10 @@ Pfaffian graphs. In \emph{ICALP 2024}, LIPIcs 297, 26. arXiv:2308.01574.
 approximate algorithms for computing a second Hamiltonian cycle. In \emph{MFCS 2020}, LIPIcs 170,
 27. arXiv:2004.06036.
 \bibitem{Eppstein23} D.~Eppstein. The complexity of iterated reversible computation.
-\emph{TheoretiCS} (2023). arXiv:2112.11607.
+\emph{TheoretiCS} 2 (2023), Article 10. arXiv:2112.11607.
 \bibitem{DHHL22} E.\,D.~Demaine, R.\,A.~Hearn, D.~Hendrickson and J.~Lynch. PSPACE-completeness of
-reversible deterministic systems. arXiv:2207.07229 (2022). % TODO: verify venue
+reversible deterministic systems. In \emph{Machines, Computations, and Universality (MCU 2022)},
+LNCS 13419, Springer (2022), 91--108. arXiv:2207.07229.
 \end{thebibliography}
 
 \appendix
