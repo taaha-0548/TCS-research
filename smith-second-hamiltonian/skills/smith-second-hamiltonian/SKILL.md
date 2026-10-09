@@ -35,6 +35,8 @@ keep an honest log of what has been tried and what it showed.
   planar 3-connected, Ω(1.1812^n)). Linear on cubic bipartite Pfaffian graphs
   (Björklund–Kaski–Nederlof, ICALP 2024).
 
+The candidate improved lower bound (1.1974^n) is in `references/improved-lower-bound.md`.
+
 The Mirror Lemma (3-edge-cut projection theorem) and its proof are in
 `references/mirror-lemma.md`.
 
@@ -50,7 +52,7 @@ The full annotated bibliography, with what each paper proves, is in
 | LOLLIPOP-OUTPUT FP^PSPACE-complete? | open, **primary target** | open-problems.md T1 |
 | 3-edge-cut gadgets (Mirror Lemma L3) | **theorem (session 2; needs an independent check)**: C1(G)/X ∈ {C0/X, C1(G/X)}; a 3-pole is a stateful mirror | references/mirror-lemma.md, research-log E9–E13 |
 | Transducer Theorem | **proved from the case analysis, exact check E14**: walk on G = walk on G/X + finite reversible automaton per 3-pole; active-memory poles common (E15) | references/mirror-lemma.md |
-| Lollipop worst-case base | ≥ 1.1812 (B–S); nested K=8 family reaches ≈ 1.1975 per vertex up to n = 50, inconclusive, no proof | research-log E1, E4, E16–E17 |
+| Lollipop worst-case base | ≥ 1.1812 (B–S). **Candidate Θ(1.19742^n)** (3-connected planar, 3 Ham cycles): exact recursion c_{k+1} = M c_k + b verified to n = 74; proof has one GAP | references/improved-lower-bound.md, research-log E18–E20 |
 | Lollipop on random instances | **our data: mean ≈ n/2, up to n = 5000; attach point uniform, 17% edge reuse (E6)**; no proof | research-log E2, E6, open-problems T2 |
 | Cyclically 4-edge-connected route (Thomassen) | closed: Zhong 2018 gives exponential examples | literature.md §3 |
 | Fastest exact algorithm for SMITH | O(1.23103^n) det., poly space (DMSZ, MFCS 2020) | literature.md §2 |

@@ -125,6 +125,10 @@ Novelty risk: a 2018 Liverpool seminar abstract on random cubic graphs, still to
 
 ## T3 (modest): better worst-case base for the lollipop walk
 
+**Session 2 update: candidate Θ(1.19742^n) on 3-connected planar cubic graphs (beats
+Briański–Szady's 1.1812), via nested 3-poles and an exact transfer matrix. See
+`improved-lower-bound.md`. Next: close the GAP (Nested Transducer Lemma).**
+
 Exact worst cases for n = 6..18: 3, 6, 11, 18, 29, 47, 74 (E1). The consecutive ratios
 (about 1.57 per two vertices, i.e. about 1.25 per vertex) exceed the best published base
 1.1812 (Briański–Szady). Small-n ratios may not persist, and annealing at n ≤ 34 (E4)

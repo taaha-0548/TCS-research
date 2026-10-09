@@ -128,6 +128,22 @@ Result files are in `scripts/` with the same E-number.
   minutes) to see where the growth rate settles; if it stays above 1.1812, derive the exact
   recurrence from the transducer composition and prove the lower bound.
 
+### E18–E20: exact recursion for the K=8 nested family (`nested_fast.py`, `level_tables.py`,
+`m_matrix.py`, `graph_props.py`, `count_ham.py`, `e19*`, `e20_M.json`)
+- Deep run (E18): max steps 6, 27, 97, 249, 886, 2187, 7747, 19025, 67358, 165331, 585321,
+  1436585, 5085902, 12482515 for n = 8..86. Two-level factor converges to 8.689.
+- Every level is 3-connected and planar (n ≤ 80) with exactly 3 Hamiltonian cycles (n ≤ 32 by
+  enumeration), the same class as Briański–Szady.
+- Pole table (E19): all 12 visits transmit, with an identical pattern at every level k ≤ 11.
+  The growth comes from visit costs, not reflections.
+- Sub-visit matrix (E20): M and b are level-independent; c_{k+1} = M c_k + b holds exactly
+  for k = 0..10 (levels 7–11 out of sample). ρ(M) = 2.947711586844 = largest root of
+  λ^4 − 2λ^3 − 2λ^2 − 2λ − 1, giving **Θ(1.19742^n) vs Briański–Szady's 1.1812^n**.
+- First extraction missed sub-visits that start at the visit's first state (spectral radius
+  2.833). Fixed by including the pre-visit state.
+- Verdict: **candidate improved lower bound**; proof plan with one GAP (Nested Transducer
+  Lemma) in `references/improved-lower-bound.md`.
+
 ---
 
 ## Session 1 (October 2026): literature map, simulator, first experiments
