@@ -23,7 +23,7 @@ FP^PSPACE is already known, so hardness is the whole result.
 
 **Route R (new, Session 2): the walk as zero-player reversible motion planning.**
 
-*Conjecture L3 (Mirror Lemma).* Let X be the side of a 3-edge cut of G with v0, its
+*Theorem L3 (Mirror Lemma; proved in session 2, see `mirror-lemma.md`; needs an independent check).* Let X be the side of a 3-edge cut of G with v0, its
 neighbours and C0's last vertex outside X, and let H = G/X (X contracted to x). Project every
 G-state whose endpoint is outside X to an H-state. Then the projected walk moves one step at a
 time along H's lollipop line S_0..S_L, and changes direction only during excursions of the
@@ -31,7 +31,7 @@ endpoint into X. Consequently the lollipop output of G projects to either H's ou
 number of reflections) or to C0/X (odd number), and in the second case it differs from C0
 only inside X.
 
-*Proof sketch (gaps marked).*
+*Original proof sketch (superseded by the full proof in `mirror-lemma.md`).*
 1. A state with endpoint outside X uses exactly two cut edges, so X is covered by one subpath
    between two ports and the projection is a Ham path of H from v0 with the same first edge.
 2. A step with endpoint and attachment both outside X commutes with projection (the X-subpath
@@ -53,7 +53,7 @@ deterministic gadgets is PSPACE-complete (for example with the 3-spinner alone, 
 interacting k-tunnel gadget plus "rotate clockwise").
 
 *Plan.*
-- R1. Prove L3 (close gap 3). Small and self-contained; publishable as a lemma either way.
+- R1. ~~Prove L3.~~ **Done (session 2).** Remaining: independent check, novelty check.
 - R2. Compute the full **transducer** of each small 3-pole: for each (entry site type, travel
   direction, internal state) the response (transmit/reflect, new internal state). Enumerate
   all 3-poles up to 12–14 vertices. *Refuted if* every 3-pole's transducer is trivial
@@ -91,7 +91,7 @@ globally. 3-edge cuts are the natural tool for enforcing modularity, which is wh
 comes before M3.
 
 **Current state.** Session 2: Mirror Lemma L3 strongly supported (E9–E12); route R opened
-and ranked above M1. Next: R1 (prove gap 3) and R2 (transducer enumeration).
+and ranked above M1. R1 done (theorem). Next: R2 (transducer enumeration).
 
 ## T2 (quick win, publishable note): average-case behaviour of the lollipop walk
 

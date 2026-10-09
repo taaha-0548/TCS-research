@@ -35,6 +35,9 @@ keep an honest log of what has been tried and what it showed.
   planar 3-connected, Ω(1.1812^n)). Linear on cubic bipartite Pfaffian graphs
   (Björklund–Kaski–Nederlof, ICALP 2024).
 
+The Mirror Lemma (3-edge-cut projection theorem) and its proof are in
+`references/mirror-lemma.md`.
+
 The full annotated bibliography, with what each paper proves, is in
 `references/literature.md`.
 
@@ -45,7 +48,7 @@ The full annotated bibliography, with what each paper proves, is in
 | SMITH in P? | open | literature.md §1 |
 | SMITH PPA-complete? | open | literature.md §1 |
 | LOLLIPOP-OUTPUT FP^PSPACE-complete? | open, **primary target** | open-problems.md T1 |
-| 3-edge-cut gadgets (Mirror Lemma L3) | **conjecture, strongly supported (E9–E12)**: a 3-pole transmits or reflects the walk; outputs are H's answer or a local swap | research-log E9–E12, open-problems T1 route R |
+| 3-edge-cut gadgets (Mirror Lemma L3) | **theorem (session 2; needs an independent check)**: C1(G)/X ∈ {C0/X, C1(G/X)}; a 3-pole is a stateful mirror | references/mirror-lemma.md, research-log E9–E13 |
 | Lollipop worst-case base | ≥ 1.1812 (B–S); small-n exact data suggests more, inconclusive | research-log E1, E4 |
 | Lollipop on random instances | **our data: mean ≈ n/2, up to n = 5000; attach point uniform, 17% edge reuse (E6)**; no proof | research-log E2, E6, open-problems T2 |
 | Cyclically 4-edge-connected route (Thomassen) | closed: Zhong 2018 gives exponential examples | literature.md §3 |

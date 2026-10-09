@@ -62,6 +62,17 @@ Result files are in `scripts/` with the same E-number.
   (up to 8), so X's internal state persists between visits and changes behaviour.
 - Verdict: **Mirror Lemma (conjecture L3) strongly supported.** See open-problems.md T1, route R.
 
+### E13 + proof: Mirror Lemma is now a theorem (`exp_projection_lemma.py`, `e13_projection.json`,
+`references/mirror-lemma.md`)
+- Total projection π: type A (Y1·X·Y2) ↦ Y1·x·Y2; B1 (Y1·X) ↦ Y1·x; B3 (Y1·X1·Y2·X2) ↦ Y1·x·Y2.
+- E13: every G-step maps to an H-step or stays: 0 violations in ~85,000 steps, 22 poles
+  (sizes 3–15). B1 → B3 moves never occur.
+- Hand proof by case analysis (A: 3 cases, B1: 2, B3: 3), in `mirror-lemma.md`. Hypotheses:
+  cut edges form a matching, v0 ∉ X ∪ N(X).
+- Verdict: **theorem (needs an independent check).** C1(G)/X ∈ {C0/X, C1(H)}.
+- Novelty: not found in literature searches; compare against the proof of Thomassen's 3-cut
+  reduction and against Cameron 2001 before claiming it.
+
 ---
 
 ## Session 1 (October 2026): literature map, simulator, first experiments
