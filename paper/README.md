@@ -43,7 +43,7 @@ These could not be done from the research environment (paper sites were blocked)
 
 ## Verification round 1 (October 2026)
 
-Three independent checks, then fixes:
+Three independent checks, then fixes. The from-scratch reimplementation is kept in `independent/` (see its README).
 - **Independent referee reading** of all proofs: no error that breaks a proof. Fixed:
   - Lemma 4: "unique lift" became "unique type-A lift", with "every visit ends in type A".
   - Lemmas 5 and 7: restricted to visits that occur, with the occurrence argument made explicit.

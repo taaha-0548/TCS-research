@@ -708,12 +708,17 @@ is the only cubic graph on 8 vertices with exactly three Hamiltonian cycles), an
 of the graph class for larger $n$ reported below.
 We also tested the ingredients independently of this script. An edge-set implementation of the
 algorithm and a brute-force traversal of the full state graph agree with it on all tested graphs.
+A second implementation written from the definitions in this paper alone reproduces
+\cref{tab:steps} (and gives $3{,}573{,}892$ steps for $k = 13$, as the recursion predicts),
+\cref{app:example}, and \cref{tab:P0} together with \cref{app:visits}. The latter it derives from
+$109{,}632$ runs of the walk on 21 different hosts $H[y \leftarrow P_0]$, in which every visit type
+behaves identically.
 The Mirror Lemma and the Transducer Theorem were checked on thousands of random hosts and 3-poles.
 \Cref{lem:composition} was checked on $71{,}484$ random pairs $(P', X)$, and \cref{lem:simple} on
 $7{,}233$ random simple poles with up to 21 vertices, without exception. When $X$ is not simple, the
 conclusions of \cref{lem:composition} fail in most cases, so the hypothesis cannot be dropped.
-Planarity, 3-connectivity and the number of Hamiltonian cycles were confirmed directly for
-$n \le 80$, $n \le 68$ and $n \le 50$, respectively.
+Planarity and 3-connectivity were confirmed directly for $n \le 80$, and the number of Hamiltonian
+cycles by exhaustive search for $n \le 56$.
 
 \section{Discussion and open problems}\label{sec:discussion}
 
