@@ -5,6 +5,21 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 4 (October 2026): reviewer-ready package (`/paper`)
+
+- Manuscript `paper/paper.tex`: Theorem 1 (Θ(1.19742^n)), Mirror Lemma, Transducer Theorem,
+  Lemma S, Composition Lemma, construction, recursion and certificate, graph-class proofs,
+  verification, discussion. Appendix: every move of the 12 base visits (generated).
+- `paper/verify.py`: standalone and standard library only; checks every computational claim; ALL
+  CHECKS PASSED (k ≤ 10).
+- While re-checking the Mirror Lemma cases for the paper, made explicit that outside visits the
+  projected walk follows H's own walk (the admissible edge and the forbidden vertex map
+  identically). Now Transducer Theorem item 1.
+- Literature (search only, full texts blocked): Briański–Szady ask whether faster-growing families
+  exist; no 2025–2026 improvement found. Author checklist in `paper/README.md`.
+
+---
+
 ## Session 3b (October 2026): comprehensive audit (`scripts/audit/`)
 
 - A1/A2 simulator = Thomason: production = independent edge-set walk = brute-force state graph

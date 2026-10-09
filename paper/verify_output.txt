@@ -1,0 +1,53 @@
+[1] base graph
+  ok   K is simple cubic
+  ok   K has exactly 3 Hamiltonian cycles (found 3)
+  ok   P0 = K - r is simple: h = {('a', 'b'): 1, ('a', 'c'): 1, ('b', 'a'): 1, ('b', 'c'): 1, ('c', 'a'): 1, ('c', 'b'): 1}
+  ok   r is not adjacent to x (hypothesis H2)
+[2] the 12 visits of P0
+  ok   visit ab/B1: TRANSMIT, cost 3, passages {('ca', 'B3'): 1}
+  ok   visit ab/B3: TRANSMIT, cost 10, passages {('ac', 'B1'): 1, ('bc', 'B3'): 1, ('ab', 'B1'): 1, ('bc', 'B1'): 1, ('ac', 'B3'): 1}
+  ok   visit ac/B1: TRANSMIT, cost 5, passages {('ab', 'B3'): 1, ('ac', 'B1'): 1}
+  ok   visit ac/B3: TRANSMIT, cost 10, passages {('ab', 'B3'): 1, ('ac', 'B1'): 1, ('cb', 'B1'): 1, ('ba', 'B3'): 1, ('bc', 'B1'): 1}
+  ok   visit ba/B1: TRANSMIT, cost 3, passages {('ca', 'B1'): 1}
+  ok   visit ba/B3: TRANSMIT, cost 10, passages {('ca', 'B3'): 1, ('cb', 'B1'): 1, ('ab', 'B3'): 1, ('ac', 'B1'): 1}
+  ok   visit bc/B1: TRANSMIT, cost 5, passages {('bc', 'B1'): 1, ('ac', 'B3'): 1}
+  ok   visit bc/B3: TRANSMIT, cost 10, passages {('bc', 'B1'): 1, ('ac', 'B3'): 1, ('ab', 'B1'): 1, ('cb', 'B3'): 1}
+  ok   visit ca/B1: TRANSMIT, cost 3, passages {('ba', 'B1'): 1}
+  ok   visit ca/B3: TRANSMIT, cost 6, passages {('ab', 'B3'): 1, ('ac', 'B1'): 1}
+  ok   visit cb/B1: TRANSMIT, cost 3, passages {('cb', 'B3'): 1}
+  ok   visit cb/B3: TRANSMIT, cost 6, passages {('bc', 'B1'): 1, ('ac', 'B3'): 1}
+    keys: ['ab/B1', 'ab/B3', 'ac/B1', 'ac/B3', 'ba/B1', 'ba/B3', 'bc/B1', 'bc/B3', 'ca/B1', 'ca/B3', 'cb/B1', 'cb/B3']
+    c0  : [3, 10, 5, 10, 3, 10, 5, 10, 3, 6, 3, 6]
+    M[ab/B1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+    M[ab/B3] = [1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0]
+    M[ac/B1] = [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    M[ac/B3] = [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0]
+    M[ba/B1] = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+    M[ba/B3] = [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0]
+    M[bc/B1] = [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+    M[bc/B3] = [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1]
+    M[ca/B1] = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    M[ca/B3] = [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    M[cb/B1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+    M[cb/B3] = [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+[3] exact recursion and growth certificate
+  ok   M_R u >= 29477/10000 u exactly, u > 0 on R (10 reachable entries)
+    certified base per vertex: (29477/10000)^(1/6) = 1.197422
+[4] end-to-end: lollipop walk on G_k from (0,1), k = 1..10
+  ok   k= 1 n= 14: steps =       10, formula 4 + c_(k-1)[ca/B3] = 10
+  ok   k= 2 n= 20: steps =       25, formula 4 + c_(k-1)[ca/B3] = 25
+  ok   k= 3 n= 26: steps =       73, formula 4 + c_(k-1)[ca/B3] = 73
+  ok   k= 4 n= 32: steps =      214, formula 4 + c_(k-1)[ca/B3] = 214
+  ok   k= 5 n= 38: steps =      628, formula 4 + c_(k-1)[ca/B3] = 628
+  ok   k= 6 n= 44: steps =     1849, formula 4 + c_(k-1)[ca/B3] = 1849
+  ok   k= 7 n= 50: steps =     5449, formula 4 + c_(k-1)[ca/B3] = 5449
+  ok   k= 8 n= 56: steps =    16060, formula 4 + c_(k-1)[ca/B3] = 16060
+  ok   k= 9 n= 62: steps =    47338, formula 4 + c_(k-1)[ca/B3] = 47338
+  ok   k=10 n= 68: steps =   139537, formula 4 + c_(k-1)[ca/B3] = 139537
+[5] graph class, small k (exhaustive)
+  ok   k=0 n=8: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected
+  ok   k=1 n=14: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected
+  ok   k=2 n=20: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected
+  ok   k=3 n=26: simple cubic, exactly 3 Hamiltonian cycles, 3-edge-connected
+
+ALL CHECKS PASSED
