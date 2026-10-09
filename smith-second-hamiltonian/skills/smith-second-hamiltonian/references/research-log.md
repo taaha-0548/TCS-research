@@ -5,6 +5,31 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 7 (October 2026): stronger lemmas and hypotheses (`scripts/phase4/`)
+
+- **Site Normal Form** (proof sketched; 61,308 retrace checks and 18,540 involution checks per
+  side, all exact, `normal_form.py`). At every site, transmit is a bijection between left and right
+  states whose inverse is the backward transmit (Retrace). Reflections from either side form a
+  fixed-point-free involution: a reflection always changes the state, and reflecting again
+  restores it. Every gadget site is therefore a reversible deterministic tunnel in the DHHL sense.
+- **Replay Lemma** (derived): after a reflection at a site of gadget g, the particle undoes the
+  preceding sweep except at g's earlier sites, reflects again at the previous turning point
+  (involution), and replays the sweep exactly until it meets a site of g.
+- **Hypothesis F (flat polynomiality) refuted.** Ideal 4-state tunnels with 2 sites per gadget give
+  best runs 5, 21, 69, 213, 645, 1941, 5829 (a_m = 3a_{m−1} + 6, `ideal_climb.py`); 2-state
+  gadgets are always 2N − 1. Optimal designs are **nested cavities** L1 L2 … Lm Rm … R1
+  (`ideal_extract.py`). **Real gadget automata** (6–10 vertices) in that order give 4, 16, 52,
+  160, 484, 1456, 4372, 13120 (a_m = 3a_{m−1} + 4, `real_cavity.py`): constant-size gadgets
+  count exponentially.
+- Real gadgets on nested hosts (`flat_on_clock.py`): visits/L = 4.5, 23, 40 for L = 214, 628, 1849.
+- Host realisability (`host_chains.py`): the longest nested chain of 2-site vertices in random
+  hosts has mean 2.6 (n = 40) to 9.2 (n = 640), max 17. Structured hosts (`structured_hosts.py`,
+  prisms and Moebius ladders) timed out; still to do.
+- Open, and decisive: (U) are nested cavity machines with realisable gadgets universal (can they
+  simulate reversible TMs)? (R) can designed hosts provide nested chains of polynomial length?
+
+---
+
 ## Session 6d (October 2026): Phase 3: towers as Turing machines (`scripts/phase3/`, `t1-roadmap.md`)
 
 - Reframing: a tower of a fixed gadget P' is a Turing machine (levels = cells, calls = right moves,
