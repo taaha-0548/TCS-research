@@ -54,6 +54,27 @@ Apply (S6) to the minority colour's Füredi partition, with m ≤ t ≤ C(r,2):
 - This shrinks the case space for the rigidity programme (`frame_rigidity.md`). It also kills the
   single-colour obstructions: both the F2 example and the r = 7 covering-frame witness violate (S6).
 
+## Checks recorded
+- **Reviewer's hand check (round 3).** (S6) is sound. H is exactly the union of the other r−1 colour
+  classes, so there is no double-counting. The pentagon meets the bound with equality at r = 2: G = C_5,
+  t = 1, parts of sizes 3 and 2, m = 1 = (r−1)(n−r²). Tightening the budget to the exact
+  t ≤ C(r,2) + k(k−1)/(2r) does not move the threshold.
+- **Füredi wording.** We use Theorem 1 of the arXiv version: a K_{p+1}-free graph with e = e(T_{n,p}) − t has
+  an at-most-p-chromatic subgraph with at least e − t edges. This gives an r-partition (possibly with
+  empty parts) with at most t edges inside parts. The published JCTB abstract words it as "≥ e(T_{n,p}) − 2t
+  edges", which is consistent; the journal text is still to be confirmed.
+
+## Next lead: (S6) on unions of two parts
+For W = V_j ∪ V_k, every pair inside W is either a G-edge or an H-edge, so
+
+  e_G(V_j, V_k) ≤ |V_j||V_k| + m_j + m_k − (r−1)·p_r(|V_j| + |V_k|).
+
+- For two r-parts, p_r(2r) = r, so e_G ≤ r + m_j + m_k. The cross G-edges are nearly a matching, by
+  colour density alone and without needing exact cliques.
+- For an (r+1)-part and an r-part, p_r(2r+1) = r + 2, so e_G ≤ 2 + m_j + m_k.
+- Plan: combine these pair bounds with the greedy blocking argument (`frame_rigidity.md`) and the
+  budget I + |E⁺| = t + m ≤ 2t at n = r² + 1.
+
 ## Limits
 At n = r² + 1, (S6) gives only m ≥ r−1 against m ≤ C(r,2), so the gap of about r/2 remains. Closing it
 needs an extra cost of roughly C(r,2) once a part is oversized. The natural candidates are the blocking
