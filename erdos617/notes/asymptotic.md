@@ -62,9 +62,11 @@ fewest edges, so e(G) ≤ C(n,2)/r, and let H be the complement of G.
    (3)  S⁺²·(1 − P/r) ≤ 2P·(S⁺ + n).
 
 7. **Bootstrap.** We first need P/r bounded away from 1.
-   - Using the averaging bound, Σ_j e(H[V_j]) ≥ (r−1)·Σ_{x_j≥1} (1 + (x_j−1)/r)², and this is at least
-     (r−1)·(P(1 − 2/r) + 2S⁺/r).
-   - Comparing with m < n/2 ≤ (r² + S⁺)/2 gives S⁺ ≤ (1/3 + o(1))·r².
+   - For x ≥ 1 we have (r+x)(r+x−1) = r² + (2x−1)r + x(x−1) ≥ r(r+1) + 2(x−1)r, so
+     C(r+x,2)/C(r+1,2) ≥ 1 + 2(x−1)/(r+1).
+   - With the averaging bound this gives Σ_j e(H[V_j]) ≥ (r−1)·(P(1 − 2/(r+1)) + 2S⁺/(r+1)).
+   - Comparing with m < n/2 ≤ (r² + S⁺)/2 gives S⁺·(2(r−1)/(r+1) − 1/2) < r²/2, that is
+     S⁺ ≤ (1/3 + o(1))·r².
    - Hence n ≤ (4/3 + o(1))·r², and (2) gives P ≤ (2/3 + o(1))·r.
    - Now (3) gives S⁺ = O(r^{3/2}). So n = r² + O(r^{3/2}), and (2) improves to P ≤ (1/2 + o(1))·r.
    - Feeding this back into (3): S⁺²·(1/2 − o(1)) ≤ (1 + o(1))·r³. So K ≤ S⁺ ≤ (√2 + o(1))·r^{3/2}. ∎
