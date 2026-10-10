@@ -102,17 +102,30 @@ In particular, an endpoint of an H-edge never dominates another part on its own.
   pairs, so every part must be used and no deficient part can be skipped.
 - Blocking an H-edge uv can then be cheap: it suffices that N(u) ∪ N(v) ⊇ K for some deficient K. By D2
   that costs only about r/2 edges per vertex.
-- **Budget-tight candidate.** Sizes (r+2, r−1, r, …, r), with H[V_1] = C_{r+2} and each vertex of V_1
-  adjacent to (r−1)/2 vertices of K so that every cycle edge jointly covers K.
-  - Then I = 2, m = r+2 and |E⁺| ≈ (r+2)(r−1)/2.
-  - That gives t = I + |E⁺| − m = C(r,2) − 1, inside the budget with one edge to spare.
-  - It fails anyway. Covering along the cycle forces N(v_i) = K \ N(u_i) and N(u_{i+1}) ⊇ K \ N(v_i).
-    With all degrees equal to (r−1)/2, every u_i has the same neighbourhood K_A. Then K_A together with
-    the A-side of the cycle is a G-clique of size at least r+1, violating (C).
+- **Budget-tight candidate** (one specific attempt, not the general case). Sizes (r+2, r−1, r, …, r).
+  V_1 has H[V_1] = C_{r+2}, so G[V_1] is the complement of the cycle. K is the (r−1)-part. Every cycle
+  edge uv is blocked by covering, N(u) ∪ N(v) ⊇ K; no other blocking is used.
+  - Covering forces d(u) + d(v) ≥ r−1 on every cycle edge. Summing over the r+2 edges, the edges from
+    V_1 to K number Σd ≥ (r+2)(r−1)/2.
+  - With I = 2 and m = r+2, the budget t = I + |E⁺| − m ≤ C(r,2) allows |E⁺| ≤ (r² + r)/2. That is one
+    edge more than (r+2)(r−1)/2.
+  - So all but at most two units of slack are tight: d(u) + d(v) = r−1 on all cycle edges but at most
+    two. (By D2, d(u) + d(v) ≤ r on an H-edge, so no single edge can absorb more.)
+  - On a tight edge, |N(u)| + |N(v)| = |K| and the union is K, so N(v) = K \ N(u).
+  - **r odd.** C_{r+2} is an odd cycle. If every edge is tight, going round the cycle gives
+    N(w) = K \ N(w) for a vertex w, which is impossible. With one or two slack edges the alternation
+    breaks there, so this case still needs a short extra argument.
+  - **r even.** If every edge is tight, the alternation gives the two colour classes A and B of the even
+    cycle common neighbourhoods K_A and K_B = K \ K_A. Vertices on the same side are non-adjacent in H,
+    so they are adjacent in G. Hence A ∪ K_A and B ∪ K_B are G-cliques with total size
+    (r+2) + (r−1) = 2r+1, so one has at least r+1 vertices. That violates (C). The one or two slack edges
+    again need a short extra argument.
+  - **Status.** The configuration looks impossible, but the slack-edge cases are not written out. It is
+    budget-tight to within one edge, which is why it is the one to check.
 - Open: whether unequal degrees, or another H[V_1] with more edges, escapes this. That needs the pair
   sums of D2 together with the clique cap on Q ∪ K′ for G-cliques Q ⊆ V_1.
-- Being checked exactly: `DECIDE_CAP=65 python3 scripts/frame_min.py 5 custom 7,4,5,5,5 0` and the r = 6
-  analogue `8,5,6,6,6,6` (V_1 free, the other parts fixed cliques).
+- Exact check prepared but stopped: `DECIDE_CAP=65 python3 scripts/frame_min.py 5 custom 7,4,5,5,5 0`, and
+  `8,5,6,6,6,6` for r = 6. r = 5 and 6 are claimed solved, so these would only probe the lemma.
 
 **Proposed lemma to aim for.** In the m-minimal Füredi partition at n = r²+1, suppose an H-edge uv lies in
 V_j. Then blocking all independent (r+1)-sets through uv costs more than the budget allows, once each
