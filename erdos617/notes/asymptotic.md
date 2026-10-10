@@ -13,6 +13,9 @@ Status: elementary arguments whose only external input is Füredi's stability th
 **Theorem A (headline).** N(r) < 2r³/(r+1) < 2r² for all r ≥ 2.
 
 **Theorem B.** For r ≥ 10, N(r) ≤ r² + 2√2·r^{3/2} + 16r.
+The proof is valid from r = 10, but B only improves on A from r = 35 on (r = 34: A ≈ 2246, B ≈ 2261;
+r = 35: A ≈ 2382, B ≈ 2371). So B is an asymptotic statement. For actual finite-r values, use the
+script optimisation (see Remarks), which beats both theorems at every r computed.
 
 **Corollary C** (more fragile; the constant needs its own check). N(r) ≤ r² + (√2 + o(1))·r^{3/2}.
 
@@ -20,10 +23,12 @@ Status: elementary arguments whose only external input is Füredi's stability th
 - **Turán.** p_r(n) is the minimum number of edges of an n-vertex graph with α ≤ r. It is attained by
   r cliques of near-equal sizes, and by convexity p_r(n) ≥ n²/(2r) − n/2.
 - **Füredi** (JCTB 115 (2015) 66–71, Thm 1). If H is K_{r+1}-free with e(H) = t_r(n) − t, where t ≥ 0,
-  then deleting at most t edges makes H r-partite.
+  then H has an r-partite subgraph with at least e(H) − t edges. Equivalently, deleting at most t edges
+  makes H r-partite.
 
 ## Common setup
-Fix a balanced r-colouring of K_n with r ≥ 2. Let G be a colour class with the fewest edges, so
+Fix an r-colouring of K_n, r ≥ 2, in which every (r+1)-set of vertices sees all r colours. Erdős–Gyárfás
+call such a colouring "balanced"; this is a condition on (r+1)-sets, not on class sizes. Let G be a colour class with the fewest edges, so
 e(G) ≤ C(n,2)/r, and let H be the complement of G.
 
 - **(S1)** α(G) ≤ r, so H is K_{r+1}-free.
@@ -32,7 +37,7 @@ e(G) ≤ C(n,2)/r, and let H be the complement of G.
   t ≤ n(n−1)/(2r) − (n²/(2r) − n/2) = n(r−1)/(2r).
 - **(S4)** Since e(H) = C(n,2) − e(G) = t_r(n) − t, Füredi gives an r-partition V_1, …, V_r with
   m := Σ_j e(H[V_j]) ≤ t.
-- **(S5)** Each part has at least as many G-edges inside it as e(G[V_j]) = C(|V_j|,2) − e(H[V_j]). So
+- **(S5)** e(G) ≥ Σ_j e(G[V_j]) = Σ_j (C(|V_j|,2) − e(H[V_j])). So
   p_r(n) + t = e(G) ≥ Σ_j C(|V_j|,2) − m ≥ Σ_j C(|V_j|,2) − t, that is,
 
   Σ_j C(|V_j|,2) ≤ p_r(n) + 2t.
@@ -90,4 +95,5 @@ S⁺ ≤ (√2 + O(r^{−1/2}))·r^{3/2}. ∎
   parts (cross-edge blocking), or the other colours.
 - `scripts/asymptotic_bound.py` and `scripts/asymptotic_bound2.py` solve the exact optimisation behind
   these arguments. They give N(r) ≤ 10, 18, 30, 42, 57, 74, 116, 259, 460 for
-  r = 3, 4, 5, 6, 7, 8, 10, 15, 20. These are well inside Theorem B.
+  r = 3, 4, 5, 6, 7, 8, 10, 15, 20. These beat both Theorem A and Theorem B at every r listed; the
+  theorems describe the asymptotic shape, and the scripts give the finite-r data.

@@ -4,7 +4,8 @@ Status: a lemma for one special configuration, not a result about the conjecture
 direction until the unbalanced case is handled, or shown to reduce to the balanced one.
 
 ## Setting
-Fix a balanced r-colouring of K_{r²+1}. Let G be the minority colour and H its complement.
+Fix an r-colouring of K_{r²+1} in which every (r+1)-set sees all r colours (balanced, in Erdős–Gyárfás's
+sense). Let G be the minority colour and H its complement.
 - Since e(G) ≤ C(n,2)/r and p_r(r²+1) = r·C(r,2) + r, the budget is t := e(G) − p_r(n) ≤ C(r,2).
 - Füredi gives an r-partition V_1, …, V_r with m := Σ_j e(H[V_j]) ≤ t.
 - Write M for the non-edges of G inside parts (so |M| = m), and E⁺ for the G-edges between parts.
@@ -33,16 +34,19 @@ Nothing is assumed about the inside of V_1.
    other R_l. If some R_l loses none, put it last; greedy then completes an independent transversal
    through x. So x has exactly one neighbour in every other R_l, and every pair R_j, R_l is joined by a
    perfect matching. That is C(r−1,2)·(r−2) more edges of E⁺.
-6. **Count against the budget.** |E⁺| ≥ C(r−1,2)(r−2) + 2(r−1). This exceeds r(r−1) for every r ≥ 5
-   (r = 5: 26 > 20; the left side grows like r³/2). ∎
+6. **Count against the budget.** |E⁺| ≥ C(r−1,2)(r−2) + 2(r−1). This exceeds r(r−1) exactly when
+   (r−1)(r−2)(r−4) > 0, i.e. for every r ≥ 5 (r = 5: 26 > 20; the left side grows like r³/2). ∎
 
 At r = 4 the bound is 6 + 6 = 12 against a budget of 12, so the lemma just fails there.
 
 ## Why this matters
 At n = r² + 1, with near-balanced parts, blocking all independent sets needs about r³/2 cross edges,
-while the budget is r². The affine-plane colouring of K_{r²} sits exactly on the boundary: its merged
-colour is r row-cliques joined by perfect matchings (the columns). The one extra vertex is what forces
-the cubic cost.
+while the budget is r². Compare the affine-plane colouring of K_{r²}. There the minority colour is a
+single parallel class: r disjoint r-cliques, with t = 0 and no cross edges at all, and nothing needs
+blocking because no part has a missing edge. Adding one vertex forces a part of size r+1 and hence a
+missing edge uv. Blocking all the independent sets through uv then costs about r³/2 cross edges.
+(The merged colour of the affine construction, rows joined by column matchings, is the largest class,
+not the minority one, so it is not the relevant picture here.)
 
 ## Proof strategy for all large r
 The lemma needs a robust version that allows:
