@@ -40,4 +40,4 @@ that search was incomplete. If an N(r) ≤ r² + O(r) bound is already known, we
 reference.
 
 AI-assistance disclosure: found and checked with the help of an AI assistant (Claude); the proof was also
-re-derived by hand by the human poster's reviewer.
+independently re-checked line by line by a second reviewer. Not refereed.
