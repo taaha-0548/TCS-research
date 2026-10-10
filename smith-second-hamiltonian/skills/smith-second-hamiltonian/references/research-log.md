@@ -5,6 +5,27 @@ Result files are in `scripts/` with the same E-number.
 
 ---
 
+## Session 11 (October 2026): Lean formalization and the L1/L1′ cycle (`/lean/Lollipop`, `phase5/cycle18–19b`)
+
+- Lean 4.24 toolchain installed from its GitHub release, since the release server is blocked. The library uses core Lean, no Mathlib.
+- **Proved in Lean** (only standard axioms):
+  - rotation is reversible and preserves paths;
+  - non-backtracking walks in max-degree-2 graphs never revisit a vertex;
+  - contraction commutes with reversal and with rotation (the core of the Mirror Lemma);
+  - recursive bounce machines with **L1** (local RForcesR ⇒ T↓ in every tower);
+  - **L2** (all-transmit visits act by a fixed call word, i.e. a functionally recursive self-similar action).
+- Cycle 18: procedure trees of P′ against arbitrary answers.
+  - Rich tower #21 fails strong RForcesR, yet has T↓.
+  - The failing branches need non-reversible children, so L1 alone does not explain T↓ in real towers.
+- Cycle 19/19b: a free reversible child that obeys the Site Normal Form axioms gives the condition **L1′**.
+  - 1,385 random gadgets × 4 bases × 3 levels: L1′ ⇒ T↓ in 362/362. When L1′ fails, T↓ breaks in 840/1,023.
+  - Strong RForcesR ⇒ T↓ in 65/65, consistent with the Lean theorem.
+  - Metric correction: only "T after R" violates T↓; cycle 15's "≥2 R-calls" also counted reflecting visits.
+- Consequence: for L1′ towers, output prediction reduces to evaluating a functionally recursive action, plus a reflecting spine. Hardness among single-slot towers needs L1′ to fail.
+- Next: formalize the reversible-gadget axioms and their closure (L3), giving T↓ as a theorem for the L1′ class. Run cycle 17 on the multi-reflection candidates.
+
+---
+
 ## Session 10 (October 2026): cycles 6–16, information flow in towers (`scripts/phase5/`)
 
 Cycles 6–8: realisable gates.

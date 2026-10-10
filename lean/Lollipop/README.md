@@ -14,6 +14,7 @@ normal machine replace it with `leanprover/lean4:v4.24.0`.
 | `Rotation.lean` | `rot P i = P[0..i] ++ reverse P[i+1..]`. Proves: it permutes the vertices (so it keeps Hamiltonicity), keeps the prefix up to `w`, `rot (rot P i) i = P` (the state graph is undirected), and the new endpoint is `P[i+1]`. |
 | `Path.lean` | `Chain` (walk in a graph), append and reverse lemmas; **`rot_chain`**: with a symmetric adjacency, if `z w` is an edge then the rotated sequence is again a path. |
 | `Contract.lean` | Contraction of the 3-pole `X` to one vertex (`collapse`: each block of consecutive `X`-vertices becomes `none`). Proves that it splits over concatenation (merging at an `X`–`X` junction) and **commutes with reversal**; and **`collapse_rot`**: if the deleted edge `w s` and the added edge `z w` are not inside `X`, contracting after the rotation equals rotating after contracting, at the image of `w`. This is the principle behind every case of the Mirror Lemma. |
+| `Machine.lean` | Recursive bounce machines (abstract towers of gadgets): local procedures as decision trees, composition `P'[x ← child]`, towers. **`tower_TDown` (L1)** and **`tower_transmit_selfsimilar` (L2)**; see `HYPOTHESES.md`. |
 | `Walk.lean` | **`NBWalk.injective`**: a non-backtracking walk in a loopless symmetric graph of maximum degree 2, starting from a vertex of degree ≤ 1, never revisits a vertex. This is the reversibility fact behind Thomason's algorithm and Lemma 4 of the paper. |
 
 Axiom check (`#print axioms`): only `propext`, `Quot.sound`, `Classical.choice`.
