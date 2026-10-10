@@ -112,7 +112,12 @@ if __name__ == "__main__":
     r = int(sys.argv[1]); kind = sys.argv[2]; useD = len(sys.argv) > 3 and sys.argv[3] == "D"
     n = r * r + 1; M = comb(n, 2) / r
     D_sizes = list(range(r + 2, 2 * r + 2)) if useD else []
-    if kind == "furedi":
+    if kind == "custom":   # e.g.  custom 7,4,5,5,5 0   (sizes, then comma-list of free block indices)
+        sizes = tuple(int(a) for a in sys.argv[3].split(","))
+        free_idx = {int(a) for a in sys.argv[4].split(",")} if len(sys.argv) > 4 and sys.argv[4] else set()
+        frames = [(sizes, tuple(j in free_idx for j in range(len(sizes))))]
+        useD = False; D_sizes = []
+    elif kind == "furedi":
         frames = [((r + 1,) + (r,) * (r - 1), (True,) + (False,) * (r - 1))]
     else:
         from blocking_lemma import partitions
