@@ -83,6 +83,25 @@ The only general bound found in the literature is Erdős–Szemerédi (1972), wh
 I did not find an O(r²) upper bound in the sources read: ErGy99, the 2026 repos, and the
 set-colouring Ramsey abstracts. The literature still needs checking before calling this new.
 
+**F5. Rigidity of the balanced frame at n = r²+1** (`notes/frame_rigidity.md`).
+- Setting: in the minority colour, a Füredi partition with sizes (r+1, r, …, r) whose r-sized parts
+  are cliques.
+- (C) makes the cross edges matchings, and a greedy independent-transversal argument then forces
+  perfect matchings between all parts.
+- That costs at least C(r−1,2)(r−2) + 2(r−1) ≈ r³/2 cross edges, against a budget of r(r−1). So this
+  frame is impossible for every r ≥ 5.
+- The cubic-versus-quadratic slack is the main reason to expect a proof for all large r. What remains
+  is a robust version allowing unbalanced parts and missing edges inside parts.
+
+## Current plan
+1. Make F5 robust. The hard case is deficient parts (size r − y), which an outside vertex can dominate.
+   They cost imbalance y(y+1)/2, and their deficit must be absorbed by oversized parts. Each oversized
+   part costs at least r−1 missing edges, but also supplies an extra independent pair.
+2. Test the shapes exactly for small r in decision mode:
+   - `DECIDE_CAP=M_r python3 scripts/frame_min.py r furedi` (the F5 shape with a free big part);
+   - `DECIDE_CAP=M_r python3 scripts/blocking_lemma.py r` (covers by r+1 cliques).
+3. Literature check of F4 by a human. arXiv and most journals are blocked from this sandbox.
+
 ## Approaches (ranked)
 
 1. **Asymptotic conjecture: N(r) ≤ (1+o(1))r², then r² + O(r).** Start from F3.
