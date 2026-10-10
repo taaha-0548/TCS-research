@@ -55,6 +55,8 @@ is r − 2.
 - At r = 2 the integer step does not apply, since 2/r = 1. The separate statement N(2) ≤ 5 is sharp.
 
 ## What this means
+- **Superseded unconditionally for r ≥ 5** by Theorem E (`colour_density_bound.md`), which gives
+  N(r) ≤ r² + ⌊r/2⌋. The two coincide at r = 3 and 4 (10 and 18).
 - If (LF) holds, Theorem D supersedes every asymptotic bound we know of. That includes the
   Alon–Erdős–Gunderson–Molloy (1+o(1))r² bound (J. Graph Theory 40 (2002) 120–129), whose rate the
   reviewer reads as roughly r² + O(r^{5/3}), and our own Füredi-based r² + O(r^{3/2})

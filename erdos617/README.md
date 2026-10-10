@@ -97,6 +97,13 @@ and a 2026 preprint (Abiad, Kumar and Pragada, arXiv:2609.00210, unrefereed) cla
 - It needs verification of the preprint. If that holds, it supersedes F3 and F4. The F2 example is
   tight for the bound, so it alone cannot reach r².
 
+**F7. N(r) ≤ r² + ⌊r/2⌋ for every r ≥ 2, unconditional** (`notes/colour_density_bound.md`).
+- Inside each Füredi part of the minority colour, each of the other r−1 colours has α ≤ r. So it needs
+  at least p_r(|V_j|) edges there, all of them non-G edges.
+- Hence m ≥ (r−1)(n − r²), while m ≤ t ≤ n(r−1)/(2r).
+- This is a three-line proof, sharp at r = 2, checked exactly for r ≤ 15 (`scripts/colour_density_bound.py`).
+- It supersedes F3, F4 and AEGM's rate, and beats the conditional F6 for r ≥ 5. Novelty is unchecked.
+
 **F5. Rigidity of the balanced frame at n = r²+1** (`notes/frame_rigidity.md`).
 - Setting: in the minority colour, a Füredi partition with sizes (r+1, r, …, r) whose r-sized parts
   are cliques.

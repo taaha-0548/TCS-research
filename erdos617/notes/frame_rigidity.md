@@ -130,3 +130,46 @@ In particular, an endpoint of an H-edge never dominates another part on its own.
 **Proposed lemma to aim for.** In the m-minimal Füredi partition at n = r²+1, suppose an H-edge uv lies in
 V_j. Then blocking all independent (r+1)-sets through uv costs more than the budget allows, once each
 deficient part's cost y(y+1)/2 and each oversized part's cost are charged against r(r−1).
+
+
+## D6. Review round 2 (reviewer's results, plus follow-ups)
+
+**Reviewer's results** (checked by hand).
+- **D3 is weak here.** It only gives d_K(u) ≤ r − 3 on the cycle candidate. D2 does the real work.
+- **No H-triangles** when every H-edge is blocked by covering K and r ≥ 5. Each vertex of K is missed by at
+  most one triangle vertex, so Σ|N| ≥ 2(r−1). But D2 caps each pair sum at r, giving Σ|N| ≤ 3r/2.
+- **Degree floor.** For an H-path v–u–w, the edge vw is in G and N(v), N(w) ⊇ K \ N(u). D2 then gives
+  d_K(u) ≥ (r−1)/2 for every u of H-degree ≥ 2.
+- **The proposed lemma was wrong as stated.** Blocking one H-edge costs only about r−1 edges. Only the
+  aggregate over H[V_1] can exceed the budget.
+
+**D5 slack edges, with path lengths counted in edges.** Two slack edges split the cycle into tight paths
+with ℓ_1 + ℓ_2 = r. The neighbourhood types S_1 and S_2 are N(a) and N(c) for the path starts a and c.
+- **Both ℓ odd** (even r). The two slack edges give |S_2| − |S_1| = 1 and |S_1| − |S_2| = 1, which is
+  impossible.
+- **Both ℓ even** (even r). Here S_1 ∪ S_2 = K and |S_1 ∩ S_2| = 1. This is the case the reviewer left
+  open. It dies by D2 applied to G-adjacent pairs.
+  - The S_1-type vertices on the first path and the S_2-type vertices on the second number
+    (ℓ_1/2 + 1)(ℓ_2/2 + 1) ≥ 3 pairs when r ≥ 4.
+  - Only the two slack edges are H-edges between them, so some such pair x, z is G-adjacent.
+  - That pair has d(x) + d(z) + 1 = |S_1| + |S_2| + 1 = r + 1 > r, contradicting D2.
+
+**Even r ≥ 6, any H[V_1] (frame (r+2, r−1, r, …), covering-only blocking): impossible.**
+- The degree floor gives d_K(u) ≥ r/2 for H-degree ≥ 2.
+- D2 for G-adjacent pairs needs d(a) + d(b) ≤ r − 1. So the set T_2 of vertices with H-degree ≥ 2 is an
+  H-clique, and with no H-triangles |T_2| ≤ 2.
+- All other vertices have H-degree ≤ 1. Deleting x or y, the two candidates for T_2, must leave at least
+  r − 1 H-edges by (C). Adding the two inequalities gives r ≥ 2r − 2, a contradiction.
+- `scripts/covering_frame.py` confirms this exactly: INFEASIBLE at r = 6 and 8, using only the cap on V_1
+  and D2.
+
+**Odd r: a single-colour witness exists, so no single-colour lemma can work.**
+- r = 5 becomes infeasible once the full cap on V_1 ∪ K and the budget are added.
+- r = 7 is satisfiable even with both. Witness: H[V_1] = K_{3,3} plus three isolated vertices, with
+  complementary neighbourhoods S and K \ S on the two sides. Completed with five K_7, this is a
+  single-colour graph on 50 vertices with α = 7, satisfying (C), with 165 < 175 edges. It is another F2-type
+  example.
+- (S6) kills it. On V_1 (9 vertices) the other six colours need at least 6·p_7(9) = 12 edges, but there are
+  only 9 non-G edges.
+- So the rigidity programme must use the coloured density (S6). See `colour_density_bound.md`, where
+  (S6) inside Füredi parts already gives N(r) ≤ r² + ⌊r/2⌋.
