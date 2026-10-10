@@ -14,7 +14,7 @@ Status and prior work (revised after a novelty check by a reviewer).
   extraction of AEGM's rate.
 - **Earlier misstatement.** We previously called Erdős–Szemerédi's r^{O(1)} the best known general
   bound. That was wrong, since AEGM is strictly better.
-- **Conditionally superseded.** If the local Fajtlowicz bound holds (claimed proved in a 2026 preprint),
+- **Conditionally superseded.** If the local Fajtlowicz bound holds (claimed proved in Abiad–Kumar–Pragada, arXiv:2609.00210, 2026),
   N(r) ≤ r² + r − 2 for r ≥ 3; see `notes/brrs_bound.md`. That would supersede everything in this note.
 - Not refereed.
 

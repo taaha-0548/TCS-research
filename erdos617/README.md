@@ -89,10 +89,11 @@ quantitative sharpening.
 
 **F6. N(r) ≤ r² + r − 2 for r ≥ 3, conditional on the local Fajtlowicz bound**
 α(G) ≥ Σ_u 2/(d(u)+ω(u)+1). This is the Brause–Randerath–Rautenbach–Schiermeyer conjecture (2016),
-and a 2026 preprint (Pragada, arXiv:2609.00210) claims a proof.
+and a 2026 preprint (Abiad, Kumar and Pragada, arXiv:2609.00210, unrefereed) claims a proof.
 - Apply it to the minority colour: ω ≤ r and average degree ≤ (n−1)/r, then use convexity and integer
   degrees. Details in `notes/brrs_bound.md`; exact check in `scripts/brrs_bound.py`.
 - For r = 2 it gives N(2) ≤ 5, which is sharp.
+- The integer step's margin is only 1/((r+1)(2r+1)); r² + r − 1 needs only the real-valued bound.
 - It needs verification of the preprint. If that holds, it supersedes F3 and F4. The F2 example is
   tight for the bound, so it alone cannot reach r².
 

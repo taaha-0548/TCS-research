@@ -6,13 +6,19 @@
 
 - Brause, Randerath, Rautenbach and Schiermeyer conjectured (LF) (Discrete Appl. Math. 209 (2016) 59–67)
   and proved it for perfect graphs and for maximum degree ≤ 4.
-- A 2026 arXiv preprint, Pragada, arXiv:2609.00210, "Localization of the Caro–Wei bound and its
-  applications to bipartiteness", reports a proof. We have seen only its abstract and introduction,
-  through search summaries. It is unrefereed and about a month old.
-- We use only the weaker global-ω form, α(G) ≥ Σ_u 2/(d(u) + ω(G) + 1). This is the Bertram–Horák
-  conjecture, and it is implied by (LF).
-- Sanity check, not evidence of truth: `scripts/local_fajtlowicz_check.py` confirms (LF) on all 1,252
-  graphs with at most 7 vertices (tight on 48) and on 4,000 random graphs with 8–13 vertices.
+- A 2026 arXiv preprint, Abiad, Kumar and Pragada, "Localization of the Caro–Wei bound and its
+  applications to bipartiteness", arXiv:2609.00210 (submitted 31 Aug 2026), reports a proof via a
+  Motzkin–Straus-type inequality (its Theorem 2.2). It is unrefereed.
+  - A reviewer confirmed that its abstract and statement match (LF) exactly.
+  - Before this preprint, (LF) was known only for subquartic and perfect graphs.
+  - Not yet done: reading its Theorem 2.2 and Section 3 for hidden hypotheses. One snippet mentions
+    connectedness, but only inside the equality case.
+- We use only the weaker global-ω form, α(G) ≥ Σ_u 2/(d(u) + ω(G) + 1), which is implied by (LF). We
+  have not found an earlier refereed proof of this weaker form. Kelly–Postle (JCTB 169 (2024)) is the
+  remaining candidate to check, and would be a safer citation if it covers this form.
+- Sanity check, not evidence of truth: `scripts/local_fajtlowicz_check.py` checks (LF) exhaustively on
+  all 1,252 graphs with 1–7 vertices (tight on 48) and on 4,000 random graphs with 8–13 vertices. It
+  finds no counterexample.
 
 **Theorem D (conditional on (LF)).** N(2) ≤ 5, and N(r) ≤ r² + r − 2 for r ≥ 3.
 
@@ -29,13 +35,24 @@ is r − 2.
    evenly as possible, with every degree equal to ⌊D/n⌋ or ⌈D/n⌉.
 5. **Conclude.** If that minimum exceeds r, then α(G) ≥ r+1. Some r+1 vertices then span no edge of G,
    so they miss G's colour, which contradicts the assumption.
-6. **Closed form.** With n = r² + r − 1, the average degree is at most (n−1)/r = r + 1 − 2/r, so at least
-   2n/r vertices have degree r and the rest degree r+1. The sum is then at least
-   n/(r+1) + (2n/r)/((2r+1)(r+1)). This exceeds r because 2(r² + r − 1) > r(2r+1) for r ≥ 3.
+6. **The exact margin.** Take n = r² + r − 1 and r ≥ 3.
+   - Then n(n−1)/r = n(r+1) − (2r + 2 − 2/r), so D ≤ n(r+1) − (2r+2).
+   - The most balanced sequence therefore has at least 2r+2 vertices of degree r, and the rest have
+     degree r+1.
+   - The sum is at least n/(r+1) + (2r+2)/((2r+1)(r+1)) = r − 1/(r+1) + 2/(2r+1) = r + 1/((r+1)(2r+1)).
+   - This is strictly above r, so α ≥ r+1.
+
+   **Fragility.** The margin is only 1/((r+1)(2r+1)), so r² + r − 2 needs (LF) exactly as stated. Any
+   lossy constant in the published version would leave only the real-valued bound r² + r − 1 (Remark).
 7. **Larger n.** For every larger n the sum stays above r. `scripts/brrs_bound.py` checks this exactly,
    in rational arithmetic, for r ≤ 20. It reports exactly r² + r − 2 for every r from 3 to 20. ∎
 
 **Remark on the integer step.** Without it, convexity alone gives N(r) ≤ r² + r − 1 for all r ≥ 2.
+
+## Sanity checks
+- At n = r² the affine-plane colouring meets (LF) with equality: r disjoint K_r give 2r²/(2r) = r.
+- r = 3 gives 10, consistent with the known N(3) = 9.
+- At r = 2 the integer step does not apply, since 2/r = 1. The separate statement N(2) ≤ 5 is sharp.
 
 ## What this means
 - If (LF) holds, Theorem D supersedes every asymptotic bound we know of. That includes the
