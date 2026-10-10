@@ -83,6 +83,19 @@ The only general bound found in the literature is Erdős–Szemerédi (1972), wh
 I did not find an O(r²) upper bound in the sources read: ErGy99, the 2026 repos, and the
 set-colouring Ramsey abstracts. The literature still needs checking before calling this new.
 
+**F4 status (revised).** The qualitative (1+o(1))r² is already known: Alon–Erdős–Gunderson–Molloy,
+J. Graph Theory 40 (2002). F3 and F4 are an independent, explicit-constant route, and at most a modest
+quantitative sharpening.
+
+**F6. N(r) ≤ r² + r − 2 for r ≥ 3, conditional on the local Fajtlowicz bound**
+α(G) ≥ Σ_u 2/(d(u)+ω(u)+1). This is the Brause–Randerath–Rautenbach–Schiermeyer conjecture (2016),
+and a 2026 preprint (Pragada, arXiv:2609.00210) claims a proof.
+- Apply it to the minority colour: ω ≤ r and average degree ≤ (n−1)/r, then use convexity and integer
+  degrees. Details in `notes/brrs_bound.md`; exact check in `scripts/brrs_bound.py`.
+- For r = 2 it gives N(2) ≤ 5, which is sharp.
+- It needs verification of the preprint. If that holds, it supersedes F3 and F4. The F2 example is
+  tight for the bound, so it alone cannot reach r².
+
 **F5. Rigidity of the balanced frame at n = r²+1** (`notes/frame_rigidity.md`).
 - Setting: in the minority colour, a Füredi partition with sizes (r+1, r, …, r) whose r-sized parts
   are cliques.

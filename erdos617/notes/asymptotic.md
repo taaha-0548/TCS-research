@@ -3,14 +3,22 @@
 N(r) is the largest n for which K_n has an r-colouring where every (r+1)-set sees all r colours.
 Affine planes give N(r) ≥ r² for prime powers r. Erdős–Gyárfás (Problem #617) conjecture N(r) ≤ r².
 
-Status: elementary arguments whose only external input is Füredi's stability theorem.
+Status and prior work (revised after a novelty check by a reviewer).
+- **Known asymptotically.** Alon–Erdős–Gunderson–Molloy, "On a Ramsey type problem and the Turán
+  numbers", J. Graph Theory 40 (2002) 120–129, give N(r) ≤ (1+o(1))r² via their Theorem 6.3
+  (f(n,k) ≥ (1+δ)g(n,k) for k ≤ (1−ε)√n). This comes from the reviewer's reading; we could not open
+  the paper from this sandbox. So the qualitative statement N(r) = (1+o(1))r² is NOT new.
+- **What remains here.** A self-contained route via Füredi stability, with explicit constants
+  (Theorems A and B). AEGM's o(1) is unquantified; the reviewer's rough reading is r² + O(r^{5/3}).
+  So Theorem B is at most a modest quantitative sharpening. It is note-level, pending a careful
+  extraction of AEGM's rate.
+- **Earlier misstatement.** We previously called Erdős–Szemerédi's r^{O(1)} the best known general
+  bound. That was wrong, since AEGM is strictly better.
+- **Conditionally superseded.** If the local Fajtlowicz bound holds (claimed proved in a 2026 preprint),
+  N(r) ≤ r² + r − 2 for r ≥ 3; see `notes/brrs_bound.md`. That would supersede everything in this note.
 - Not refereed.
-- Novelty is unverified. The relevant papers were seen only as search summaries: Erdős–Szemerédi 1972;
-  Conlon–Fox–He–Mubayi–Suk–Verstraëte; Aragão–Collares–Marciano–Martins–Morris.
-- The best general bound we know of is Erdős–Szemerédi: R(k; r, r−1) ≤ r^{O(k/r)}, which gives
-  N(r) ≤ r^{O(1)}.
 
-**Theorem A (headline).** N(r) < 2r³/(r+1) < 2r² for all r ≥ 2.
+**Theorem A.** N(r) < 2r³/(r+1) < 2r² for all r ≥ 2.
 
 **Theorem B.** For r ≥ 10, N(r) ≤ r² + 2√2·r^{3/2} + 16r.
 The proof is valid from r = 10, but B only improves on A from r = 35 on (r = 34: A ≈ 2246, B ≈ 2261;
