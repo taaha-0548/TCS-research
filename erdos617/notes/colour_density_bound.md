@@ -75,6 +75,35 @@ For W = V_j ∪ V_k, every pair inside W is either a G-edge or an H-edge, so
 - Plan: combine these pair bounds with the greedy blocking argument (`frame_rigidity.md`) and the
   budget I + |E⁺| = t + m ≤ 2t at n = r² + 1.
 
+## Round 4: where the pair inequality binds
+**Reviewer's point, accepted.** For two r-parts the pair slack is r, and summed over all pairs that is about
+r³/2. So (S6) on pairs of r-parts adds nothing to the aggregate budget.
+
+**General pair slack.** Write |V_j| = r + x_j and δ = x_j + x_k, with 0 ≤ δ < r. Then (S6) on V_j ∪ V_k gives
+
+  e_G(V_j, V_k) ≤ m_j + m_k + σ_jk,   σ_jk = r − δ(r−2) + x_j x_k.
+
+This is checked against direct computation for r = 7 and 10 on seven size patterns. Some values:
+- (0,0): σ = r. This is the non-binding case.
+- (1,0): σ = 2.
+- (1,1): σ = 5 − r.
+- **(1+y, −y), an oversized part paired with a deficient part of size r−y:** σ = 2 − y − y² ≤ 0 for y ≥ 1.
+
+So every cross edge between an oversized part and a deficient part is paid for by missing edges m. Those
+are exactly the pairs where blocking was cheap (deficient parts can be dominated), which makes deficient
+parts the case that (S6) controls.
+
+**Example: the covering-only frame (r+2, r−1, r, …) dies for every r ≥ 3.**
+- (S6) on V_1 ∪ K gives Σd ≤ m.
+- So t = I + Σd − m ≤ 2.
+- But (S6) on V_1 gives m ≥ 2(r−1), and Füredi needs m ≤ t. Contradiction.
+- `scripts/covering_frame.py r full budget dens` confirms INFEASIBLE at r = 5 and 7 (r = 9 pending). Without
+  (S6), r = 7 was satisfiable: that was the single-colour witness.
+
+**What remains.** Blocking among near-r parts, where σ = r per pair, is not paid for by m. This is the
+balanced regime of the rigidity lemma. With exact r-cliques it needs about r³/2 cross edges. A robust
+version must allow missing edges inside the r-parts, bounded in total by m ≤ C(r,2).
+
 ## Limits
 At n = r² + 1, (S6) gives only m ≥ r−1 against m ≤ C(r,2), so the gap of about r/2 remains. Closing it
 needs an extra cost of roughly C(r,2) once a part is oversized. The natural candidates are the blocking

@@ -8,13 +8,17 @@ Base constraints (always on):
   (D2, y=1)     for all a != b in V_1:  d_K(a) + d_K(b) + [ab in G] <= r.
 Options:
   full    the exact (r+1)-set cap on every (r+1)-subset of V_1 u K  (G-edges <= C(r,2)+1),
+  dens    coloured density (S6) on every subset W of V_1 u K (other colours' Turan bound)
   budget  t = I + |E+| - m <= C(r,2) and m <= t, with I = 2 for these sizes, |E+| = sum_u d_K(u), m = e(H[V_1]).
 Usage: python3 covering_frame.py r [full] [budget]"""
 import itertools, sys
 from math import comb
 from ortools.sat.python import cp_model
 
-def solve(r, full=False, budget=False, show=False):
+def p_turan(r, k):
+    a, b = divmod(k, r); return r * comb(a, 2) + a * b
+
+def solve(r, full=False, budget=False, show=False, dens=False):
     V = list(range(r + 2)); K = list(range(r + 2, 2 * r + 1))
     m = cp_model.CpModel()
     h = {e: m.NewBoolVar("") for e in itertools.combinations(V, 2)}
@@ -32,6 +36,16 @@ def solve(r, full=False, budget=False, show=False):
             g = comb(len(sk), 2) + sum(1 - H(a, b) for a, b in itertools.combinations(sv, 2)) \
                 + sum(N[(u, k)] for u in sv for k in sk)
             m.Add(g <= comb(r, 2) + 1)
+    if dens:
+        # (S6)/(D) on every subset W of V_1 u K with |W| >= r+1: e_G(W) <= C(|W|,2) - (r-1) p_r(|W|)
+        allv = V + K
+        for k in range(r + 1, len(allv) + 1):
+            lim = comb(k, 2) - (r - 1) * p_turan(r, k)
+            for S in itertools.combinations(allv, k):
+                sv = [u for u in S if u in V]; sk = [x for x in S if x in K]
+                g = comb(len(sk), 2) + sum(1 - H(a, b) for a, b in itertools.combinations(sv, 2)) \
+                    + sum(N[(u, x)] for u in sv for x in sk)
+                m.Add(g <= lim)
     if budget:
         E = sum(d.values()); mm = sum(h.values())
         m.Add(2 + E - mm <= comb(r, 2)); m.Add(mm <= 2 + E - mm)
@@ -44,5 +58,5 @@ def solve(r, full=False, budget=False, show=False):
     return "SAT" if name in ("OPTIMAL", "FEASIBLE") else name
 
 if __name__ == "__main__":
-    r = int(sys.argv[1]); full = "full" in sys.argv; budget = "budget" in sys.argv
-    print(f"r={r} full_cap={full} budget={budget}:", solve(r, full, budget, show=True), flush=True)
+    r = int(sys.argv[1]); full = "full" in sys.argv; budget = "budget" in sys.argv; dens = "dens" in sys.argv
+    print(f"r={r} full_cap={full} budget={budget} dens={dens}:", solve(r, full, budget, show=True, dens=dens), flush=True)
