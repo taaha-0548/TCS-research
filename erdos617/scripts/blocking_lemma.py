@@ -8,7 +8,8 @@ cliques V_0..V_r (sizes s_j <= r, sum r^2+1) plus cross edges E+.  Requirements:
 We compute the minimum |E+| exactly (CP-SAT + lazy constraint generation with exact separation) and compare
 e(G) = sum C(s_j,2) + |E+| with the minority budget M_r = C(r^2+1,2)/r.
 If every partition gives e(G) > M_r, this clique-cover family cannot be a minority colour."""
-import itertools, sys, time
+import itertools, os, sys, time
+DECIDE_CAP = os.environ.get("DECIDE_CAP")  # if set: feasibility of e(G) <= DECIDE_CAP
 from math import comb
 from ortools.sat.python import cp_model
 
@@ -112,10 +113,13 @@ class Instance:
             for S, lim in capsets_lim(capsets, self, use_D):
                 m.Add(sum(x[(a, b)] for a, b in itertools.combinations(sorted(S), 2) if self.part[a] != self.part[b])
                       <= lim - within(S))
-            m.Minimize(sum(x.values()))
+            if DECIDE_CAP is not None: m.Add(sum(x.values()) <= int(DECIDE_CAP) - sum(comb(q, 2) for q in self.sizes))
+            else: m.Minimize(sum(x.values()))
             s = cp_model.CpSolver(); s.parameters.num_workers = 4; s.parameters.max_time_in_seconds = timeout
             st = s.Solve(m)
-            if st != cp_model.OPTIMAL:
+            if st == cp_model.INFEASIBLE:
+                return None, "INFEASIBLE (e(G) > cap)", rounds, time.time() - t0
+            if st != cp_model.OPTIMAL and not (DECIDE_CAP is not None and st == cp_model.FEASIBLE):
                 return None, f"{s.StatusName(st)} bound={s.BestObjectiveBound()}", rounds, time.time() - t0
             E = [e for e in self.cross if s.Value(x[e])]
             A = self.adj(E)

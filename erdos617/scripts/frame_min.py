@@ -9,7 +9,8 @@ Minimise e(G); compare with M_r = C(n,2)/r.  Exact: CP-SAT master + lazy cuts wi
 Frames of interest:
   'cover'  : r+1 fixed cliques (the blocking lemma),
   'furedi' : sizes (r+1, r, ..., r), first block free, others fixed (the Furedi frame at n = r^2+1)."""
-import itertools, random, sys, time
+import itertools, os, random, sys, time
+DECIDE_CAP = os.environ.get("DECIDE_CAP")  # if set: feasibility of e(G) <= DECIDE_CAP
 from math import comb
 from ortools.sat.python import cp_model
 
@@ -87,11 +88,12 @@ class Frame:
                 return sum(1 for e in itertools.combinations(sorted(S), 2) if e in self.fixed)
             for S in indep: m.AddBoolOr(lits(S))
             for S in caps: m.Add(sum(lits(S)) <= self.lim(len(S)) - nfixed(S))
-            m.Minimize(sum(x.values()))
+            if DECIDE_CAP is not None: m.Add(sum(x.values()) <= int(DECIDE_CAP) - base)
+            else: m.Minimize(sum(x.values()))
             s = cp_model.CpSolver(); s.parameters.num_workers = 4; s.parameters.max_time_in_seconds = timeout
             st = s.Solve(m)
             if st == cp_model.INFEASIBLE: return "INFEASIBLE", None, rounds, time.time() - t0
-            if st != cp_model.OPTIMAL:
+            if st != cp_model.OPTIMAL and not (DECIDE_CAP is not None and st == cp_model.FEASIBLE):
                 return f"{s.StatusName(st)} lb={base + s.BestObjectiveBound()}", None, rounds, time.time() - t0
             E = [e for e in self.var_pairs if s.Value(x[e])]
             A = self.adjacency(E)
