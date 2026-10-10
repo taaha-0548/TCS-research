@@ -1,5 +1,8 @@
 # Rigidity of the balanced Füredi frame at n = r² + 1
 
+Status: a lemma for one special configuration, not a result about the conjecture. It is a research
+direction until the unbalanced case is handled, or shown to reduce to the balanced one.
+
 ## Setting
 Fix a balanced r-colouring of K_{r²+1}. Let G be the minority colour and H its complement.
 - Since e(G) ≤ C(n,2)/r and p_r(r²+1) = r·C(r,2) + r, the budget is t := e(G) − p_r(n) ≤ C(r,2).
