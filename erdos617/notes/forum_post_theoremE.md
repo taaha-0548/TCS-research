@@ -1,5 +1,8 @@
 # Draft forum post for Erdős Problem #617 (to be posted by a human; not yet posted)
 
+Before posting, check that someone can actually post on this problem: an issue thread reported that
+comments on the page were closed.
+
 **Title:** A short general bound: N(r) ≤ r² + ⌊r/2⌋
 
 Let N(r) be the largest n such that K_n has an r-colouring in which every r+1 vertices see all r colours.
@@ -31,8 +34,10 @@ The conjecture is N(r) ≤ r² for r ≥ 3. Affine planes give N(r) ≥ r² for 
 - It does not settle the problem: at n = r²+1 the argument only forces t ≥ r−1, while t may be as large as
   C(r,2).
 
-**Question for the thread:** is a bound of the form N(r) ≤ r² + O(r) already known? We could not find
-one, but we could not search this forum.
+**Status.** We do not claim this is new. We could not access this forum's existing discussion. We found no
+bound of this form in ErGy99, AEGM, the set-colouring Ramsey papers, or the 2026 fixed-r manuscripts, but
+that search was incomplete. If an N(r) ≤ r² + O(r) bound is already known, we would be grateful for the
+reference.
 
 AI-assistance disclosure: found and checked with the help of an AI assistant (Claude); the proof was also
 re-derived by hand by the human poster's reviewer.
