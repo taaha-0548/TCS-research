@@ -1,0 +1,6 @@
+name = "Lollipop"
+version = "0.1.0"
+defaultTargets = ["Lollipop"]
+
+[[lean_lib]]
+name = "Lollipop"
