@@ -93,7 +93,8 @@ So every cross edge between an oversized part and a deficient part is paid for b
 are exactly the pairs where blocking was cheap (deficient parts can be dominated), which makes deficient
 parts the case that (S6) controls.
 
-**Example: the covering-only frame (r+2, r−1, r, …) dies for every r ≥ 3.**
+**Example: the covering-only frame (r+2, r−1, r, …) dies for every r ≥ 3.** This assumes every cross
+edge goes into K; it does not cover a general partition with these sizes.
 - (S6) on V_1 ∪ K gives Σd ≤ m.
 - So t = I + Σd − m ≤ 2.
 - But (S6) on V_1 gives m ≥ 2(r−1), and Füredi needs m ≤ t. Contradiction.
@@ -103,6 +104,44 @@ parts the case that (S6) controls.
 **What remains.** Blocking among near-r parts, where σ = r per pair, is not paid for by m. This is the
 balanced regime of the rigidity lemma. With exact r-cliques it needs about r³/2 cross edges. A robust
 version must allow missing edges inside the r-parts, bounded in total by m ≤ C(r,2).
+
+## Round 5: the general (r+2, r−1, r, …) frame, still open
+The reviewer pointed out that t = I + |E⁺| − m counts all cross edges. So the covering-only contradiction
+does not extend to general partitions with these sizes.
+
+**(S6) caps for this frame.** Each value is the most cross edges a set can carry beyond its own missing
+edges m_W. Checked for r = 5, 7, 10, 20 by `scripts/colour_density_bound.py`-style computation.
+- V_1–K: 0.
+- V_1–V_k: 4 − r.
+- K–V_k: r − 1.
+- V_k–V_l: r.
+- The triple V_1 ∪ K ∪ V_k: 2r + 1, with m counted once.
+- The triple K ∪ V_k ∪ V_l: 3r − 2, which is just the sum of its pairs.
+
+**Clique sub-case (m_K = m_k = 0, so m = m_1).**
+- Cross edges between r-cliques form matchings.
+- Each V_k sends at most r − 1 edges to K.
+- e(V_1, K) ≤ m_1, and E⁺ = t + m_1 − 2 ≤ C(r,2) + m_1 − 2.
+
+Take an H-edge uv in V_1. The independent sets to block are {u, v} plus one vertex from each of K, V_3, …, V_r.
+
+**Sharing of the V_1–K cap** (the reviewer's suggestion). Σ over H-edges uv of (d_K(u) + d_K(v)) equals
+Σ_u d_K(u)·deg_H(u), which is at most Δ_H·Σ_u d_K(u) ≤ Δ_H·m_1. So on average, u and v cover at most Δ_H
+vertices of K. The rest of K must be covered by the transversal vertices, or the transversal must be blocked
+among V_3, …, V_r.
+
+**Why plain counting does not close it.**
+- Each V_k sends at most r − 1 edges to K. A uniformly random vertex of V_k therefore covers at most about
+  1 − 1/r vertices of K in expectation, so a random transversal covers about r − 3.
+- Together with Δ_H from u, v this sits at the |K| = r − 1 threshold to leading order.
+- Rough adversary: make most vertices of each V_k have exactly one K-neighbour, and block transversals of
+  the zero-degree vertices among the V_k by matchings. This costs about r²/2 + r²/4 edges against a budget
+  of about r² − r.
+- Closing it needs a blocking argument sharper than counting. It is the same greedy/DP-colouring rigidity
+  as the balanced-frame lemma, now with K as a "sink" part.
+
+**Solver.** `DECIDE_CAP=65 scripts/frame_min.py 5 custom 7,4,5,5,5 0 D` runs the general frame at r = 5: V_1
+free, all cross edges allowed, (S6) on sets of size 7–11. (Background run; result not yet in.)
 
 ## Limits
 At n = r² + 1, (S6) gives only m ≥ r−1 against m ≤ C(r,2), so the gap of about r/2 remains. Closing it

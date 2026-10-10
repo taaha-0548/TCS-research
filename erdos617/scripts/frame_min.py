@@ -116,7 +116,8 @@ if __name__ == "__main__":
         sizes = tuple(int(a) for a in sys.argv[3].split(","))
         free_idx = {int(a) for a in sys.argv[4].split(",")} if len(sys.argv) > 4 and sys.argv[4] else set()
         frames = [(sizes, tuple(j in free_idx for j in range(len(sizes))))]
-        useD = False; D_sizes = []
+        useD = len(sys.argv) > 5 and sys.argv[5] == "D"
+        D_sizes = list(range(r + 2, 2 * r + 2)) if useD else []
     elif kind == "furedi":
         frames = [((r + 1,) + (r,) * (r - 1), (True,) + (False,) * (r - 1))]
     else:
