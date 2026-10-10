@@ -74,6 +74,12 @@ Adding cap (C) inside parts, a part of size s ≥ r+1 needs at least (r−1)·C(
 resulting optimisation gives N(r) ≤ (8/7 + o(1))·r² (`scripts/asymptotic_bound.py`). For example
 N(3) ≤ 10, N(10) ≤ 116, N(20) ≤ 461.
 
+**F4. Asymptotic conjecture: N(r) ≤ r² + (√2 + o(1))·r^{3/2}**, so N(r) = (1 + o(1))·r². Full proof in
+`notes/asymptotic.md`. It adds the imbalance cost Σ C(s_j,2) − p_r(n) ≤ 2t to F3, observes that only
+about r/2 parts can be oversized, and finishes with Cauchy–Schwarz. The exact optimisation version is
+`scripts/asymptotic_bound2.py`.
+
+The only general bound found in the literature is Erdős–Szemerédi (1972), which gives N(r) ≤ r^{O(1)}.
 I did not find an O(r²) upper bound in the sources read: ErGy99, the 2026 repos, and the
 set-colouring Ramsey abstracts. The literature still needs checking before calling this new.
 
